@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PROJECT Shinmaiko 第0回</title>
+<meta name="description" content="2026年8月9日 新舞子マリンパーク開催「PROJECT Shinmaiko 第0回」公式サイト">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#132033;
+    --ink-soft:#1d3350;
+    --sand:#f4ead0;
+    --sand-deep:#ecdcae;
+    --white:#fffaf0;
+    --coral:#ff6a45;
+    --coral-deep:#e0502c;
+    --teal:#0f7d75;
+    --teal-deep:#0a5951;
+    --gold:#e6a536;
+    --line:rgba(19,32,51,0.14);
+    --shadow:0 18px 40px rgba(19,32,51,0.16);
+    --font-display:'Shippori Antique B1', 'Zen Kaku Gothic New', sans-serif;
+    --font-body:'Zen Kaku Gothic New', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--sand);
+    color:var(--ink);
+    font-family:var(--font-body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+
+  .grain{
+    position:fixed; inset:0; pointer-events:none; z-index:200; opacity:.05; mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- nav / tabs ---------- */
+  .nav{
+    position:sticky; top:0; z-index:100;
+    background:rgba(244,234,208,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav__top{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:12px 5vw 8px;
+  }
+  .nav__brand{
+    font-family:var(--font-display);
+    font-size:clamp(15px,2vw,19px);
+    letter-spacing:.03em;
+  }
+  .nav__brand span{color:var(--coral);}
+  .nav__date{font-family:var(--font-mono); font-size:11px; opacity:.65; display:none;}
+  @media(min-width:640px){.nav__date{display:block;}}
+
+  .tabs{
+    display:flex; gap:2px;
+    padding:0 5vw 12px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  .tabs::-webkit-scrollbar{display:none;}
+  .tab{
+    flex:0 0 auto;
+    background:transparent; border:1px solid var(--line);
+    padding:9px 18px;
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.1em;
+    border-radius:999px; cursor:pointer; color:var(--ink); opacity:.6;
+    transition:all .2s ease;
+    white-space:nowrap;
+  }
+  .tab:hover{opacity:1;}
+  .tab.active{
+    background:var(--ink); color:var(--sand); border-color:var(--ink); opacity:1;
+  }
+
+  /* ---------- panels ---------- */
+  .panel{display:none;}
+  .panel.active{display:block; animation:fadein .35s ease;}
+  @keyframes fadein{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
+
+  /* ---------- compact banner (used on TOP) ---------- */
+  .banner{
+    position:relative;
+    padding:clamp(48px,8vw,72px) 6vw clamp(56px,8vw,80px);
+    background:
+      radial-gradient(120% 90% at 15% 0%, #234a72 0%, transparent 55%),
+      linear-gradient(190deg, #0d1b2e 0%, #16324f 42%, #0f5d63 78%, #0a4a4e 100%);
+    color:var(--white);
+    overflow:hidden;
+  }
+  .banner__sun{
+    position:absolute; right:6vw; top:14%;
+    width:clamp(90px,14vw,180px); height:clamp(90px,14vw,180px);
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ffd694, var(--coral) 60%, var(--coral-deep) 100%);
+    box-shadow:0 0 70px 14px rgba(255,106,69,0.35);
+    opacity:.9;
+  }
+  .banner__eyebrow{font-family:var(--font-mono); font-size:12px; letter-spacing:.3em; text-transform:uppercase; opacity:.8; margin:0 0 14px;}
+  .banner h1{
+    font-family:var(--font-display); font-weight:400;
+    font-size:clamp(34px,7vw,72px); line-height:1.02; margin:0;
+  }
+  .banner__meta{
+    margin-top:22px; display:flex; flex-wrap:wrap; gap:clamp(16px,3vw,40px);
+    font-family:var(--font-mono);
+  }
+  .banner__meta div{border-left:2px solid rgba(255,255,255,0.3); padding-left:12px;}
+  .banner__meta .label{font-size:10px; letter-spacing:.2em; opacity:.6; margin-bottom:4px;}
+  .banner__meta .value{font-size:clamp(13px,1.6vw,17px); font-weight:700;}
+  .wave{display:block; width:100%; height:auto; margin-top:-2px;}
+
+  /* ---------- section shell ---------- */
+  .section{padding:clamp(40px,7vw,80px) 6vw;}
+  .section--dark{background:var(--ink); color:var(--sand);}
+  .section__head{display:flex; flex-direction:column; gap:6px; margin-bottom:clamp(26px,4vw,44px);}
+  .section__eyebrow{font-family:var(--font-mono); font-size:12px; letter-spacing:.3em; text-transform:uppercase; color:var(--coral-deep);}
+  .section--dark .section__eyebrow{color:var(--coral);}
+  .section__title{font-family:var(--font-display); font-size:clamp(28px,4.6vw,46px); margin:0;}
+  .section__sub{font-size:14px; opacity:.7; max-width:56ch; margin-top:4px;}
+
+  /* ---------- news feed (TOP) ---------- */
+  .news{padding:clamp(40px,7vw,64px) 6vw; max-width:900px; margin:0 auto;}
+  .news__list{display:flex; flex-direction:column; gap:2px; background:var(--line); border:1px solid var(--line);}
+  .news__item{
+    display:flex; align-items:center; gap:18px;
+    background:var(--white); padding:18px 20px;
+    border:none; text-align:left; cursor:pointer; width:100%;
+    font-family:var(--font-body); color:var(--ink);
+    transition:background .2s ease;
+  }
+  .news__item:hover{background:var(--sand-deep);}
+  .news__date{font-family:var(--font-mono); font-size:11px; opacity:.55; flex:0 0 78px;}
+  .news__tag{
+    flex:0 0 auto; font-family:var(--font-mono); font-size:10px; letter-spacing:.08em;
+    padding:4px 10px; border-radius:999px; color:var(--white); background:var(--teal);
+  }
+  .news__tag.tag-artist{background:var(--coral-deep);}
+  .news__tag.tag-marche{background:var(--gold); color:var(--ink);}
+  .news__tag.tag-info{background:var(--ink-soft);}
+  .news__body{flex:1; min-width:0;}
+  .news__title{font-weight:700; font-size:15px; margin:0;}
+  .news__excerpt{font-size:12.5px; opacity:.65; margin:3px 0 0;}
+  .news__arrow{opacity:.4; font-family:var(--font-mono); flex:0 0 auto;}
+
+  /* ---------- grid (artist / marche tiles) ---------- */
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(150px,1fr));
+    gap:2px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .section--dark .grid{background:rgba(244,234,208,0.14); border-color:rgba(244,234,208,0.14);}
+
+  .tile{
+    position:relative; background:var(--white); padding:22px 16px 20px; min-height:150px;
+    display:flex; flex-direction:column; justify-content:flex-end;
+    text-align:left; border:none; cursor:pointer; color:var(--ink);
+    transition:transform .22s ease, box-shadow .22s ease, background .22s ease;
+  }
+  .section--dark .tile{background:var(--ink-soft); color:var(--sand);}
+  .tile:hover, .tile:focus-visible{
+    transform:rotate(-1.1deg) translateY(-4px); box-shadow:var(--shadow); z-index:2;
+    background:var(--coral); color:var(--white);
+  }
+  .tile:nth-child(3n):hover{transform:rotate(1.3deg) translateY(-4px);}
+  .section--dark .tile:hover, .section--dark .tile:focus-visible{background:var(--teal); color:var(--white);}
+  .tile__tag{position:absolute; top:14px; left:16px; font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; opacity:.55;}
+  .tile__name{font-family:var(--font-display); font-weight:400; font-size:clamp(17px,2.1vw,23px); line-height:1.15;}
+  .tile__role{font-size:11px; margin-top:6px; opacity:.7; font-family:var(--font-mono); letter-spacing:.05em;}
+
+  .stall{
+    position:relative; background:var(--white); padding:22px 16px 18px; min-height:150px;
+    display:flex; flex-direction:column; justify-content:space-between;
+    border:none; cursor:pointer; text-align:left; color:var(--ink);
+    transition:transform .22s ease, box-shadow .22s ease, background .22s ease;
+  }
+  .stall:hover, .stall:focus-visible{
+    transform:translateY(-5px) scale(1.015); box-shadow:var(--shadow); z-index:2;
+    background:var(--gold); color:var(--ink);
+  }
+  .stall__no{font-family:var(--font-mono); font-size:11px; opacity:.5;}
+  .stall__form{
+    align-self:flex-start; font-family:var(--font-mono); font-size:10px; letter-spacing:.08em;
+    padding:3px 8px; border:1px solid currentColor; border-radius:999px; opacity:.75; margin-top:8px;
+  }
+  .stall__name{font-family:var(--font-display); font-size:clamp(17px,2vw,21px); margin-top:14px; line-height:1.2;}
+
+  /* ---------- guideline ---------- */
+  .draft-note{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.02em;
+    background:rgba(255,106,69,0.12); color:var(--coral-deep);
+    border:1px dashed var(--coral); border-radius:10px;
+    padding:12px 16px; margin-bottom:32px; max-width:70ch;
+  }
+  .guide-list{display:grid; gap:2px; background:var(--line); border:1px solid var(--line);}
+  .guide-item{background:var(--white); padding:20px 22px;}
+  .guide-item h3{font-family:var(--font-display); font-size:18px; margin:0 0 8px; font-weight:400;}
+  .guide-item p{font-size:14px; line-height:1.85; margin:0; opacity:.85;}
+
+  /* ---------- access ---------- */
+  .access-wrap{display:grid; gap:34px; grid-template-columns:1fr;}
+  @media(min-width:860px){.access-wrap{grid-template-columns:1fr 1.2fr;}}
+  .access-info dl{display:grid; grid-template-columns:auto 1fr; gap:10px 20px; font-size:14px; line-height:1.8;}
+  .access-info dt{font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; opacity:.55; padding-top:2px;}
+  .access-info dd{margin:0;}
+  .access-map{border-radius:16px; overflow:hidden; border:1px solid var(--line); box-shadow:var(--shadow); min-height:320px;}
+  .access-map iframe{width:100%; height:100%; min-height:320px; border:0; display:block;}
+
+  /* ---------- footer ---------- */
+  .footer{background:var(--ink); color:var(--sand); padding:50px 6vw 36px; font-family:var(--font-body);}
+  .footer__top{display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px; padding-bottom:28px; border-bottom:1px solid rgba(244,234,208,0.18);}
+  .footer__title{font-family:var(--font-display); font-size:clamp(22px,3.4vw,34px);}
+  .footer__info{font-family:var(--font-mono); font-size:12.5px; line-height:2; opacity:.8;}
+  .footer__bottom{padding-top:18px; font-family:var(--font-mono); font-size:11px; opacity:.5; letter-spacing:.06em;}
+
+  /* ---------- modal ---------- */
+  .overlay{
+    position:fixed; inset:0; z-index:300; background:rgba(13,20,32,0.72); backdrop-filter:blur(3px);
+    display:flex; align-items:flex-end; justify-content:center; opacity:0; pointer-events:none; transition:opacity .25s ease;
+  }
+  .overlay.open{opacity:1; pointer-events:auto;}
+  @media(min-width:720px){.overlay{align-items:center;}}
+  .modal{
+    background:var(--white); width:100%; max-width:640px; max-height:88vh; overflow-y:auto;
+    border-radius:22px 22px 0 0; padding:clamp(28px,5vw,46px);
+    transform:translateY(24px); transition:transform .3s cubic-bezier(.2,.8,.2,1); position:relative;
+  }
+  @media(min-width:720px){.modal{border-radius:22px;}}
+  .overlay.open .modal{transform:translateY(0);}
+  .modal__close{
+    position:absolute; top:18px; right:18px; width:36px; height:36px; border-radius:50%;
+    border:1px solid var(--line); background:var(--sand); font-size:18px; line-height:1; cursor:pointer; color:var(--ink);
+  }
+  .modal__tag{font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; color:var(--coral-deep); text-transform:uppercase;}
+  .modal__name{font-family:var(--font-display); font-size:clamp(28px,5vw,40px); margin:10px 0 4px; line-height:1.1;}
+  .modal__role{font-family:var(--font-mono); font-size:12px; opacity:.6; margin-bottom:20px;}
+  .modal__body{font-size:15px; line-height:1.9; white-space:pre-line;}
+  .modal__section-title{font-family:var(--font-mono); font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--teal-deep); margin:26px 0 10px;}
+  .menu-list{list-style:none; margin:0; padding:0; display:grid; gap:8px;}
+  .menu-list li{display:flex; justify-content:space-between; gap:12px; padding:9px 0; border-bottom:1px dashed var(--line); font-size:14px;}
+  .menu-list li .price{font-family:var(--font-mono); font-weight:700; white-space:nowrap;}
+  .facility{display:inline-flex; align-items:center; gap:8px; background:var(--sand); border-radius:999px; padding:7px 14px; font-size:12px; font-family:var(--font-mono); margin-top:6px;}
+
+  .sr-only{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap;}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<nav class="nav">
+  <div class="nav__top">
+    <div class="nav__brand">PROJECT <span>Shinmaiko</span></div>
+    <div class="nav__date">2026.08.09 SUN — 新舞子マリンパーク</div>
+  </div>
+  <div class="tabs" role="tablist" aria-label="ページ切り替え">
+    <button class="tab" data-tab="top" role="tab">TOP</button>
+    <button class="tab" data-tab="marche" role="tab">MARCHE</button>
+    <button class="tab" data-tab="artist" role="tab">ARTIST</button>
+    <button class="tab" data-tab="guideline" role="tab">GUIDELINE</button>
+    <button class="tab" data-tab="access" role="tab">ACCESS</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ========== TOP (news) ========== -->
+  <section class="panel" id="panel-top">
+    <div class="banner">
+      <div class="banner__sun" aria-hidden="true"></div>
+      <p class="banner__eyebrow">知多・新舞子の渚から、第0回</p>
+      <h1>PROJECT Shinmaiko</h1>
+      <div class="banner__meta">
+        <div><div class="label">DATE</div><div class="value">2026.08.09 SUN</div></div>
+        <div><div class="label">PLACE</div><div class="value">新舞子マリンパーク</div></div>
+        <div><div class="label">LINE UP</div><div class="value">ARTIST 11 / MARCHE 14</div></div>
+      </div>
+    </div>
+    <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+      <path fill="#f4ead0" d="M0,32 C240,80 480,0 720,28 C960,56 1200,88 1440,40 L1440,90 L0,90 Z"></path>
+    </svg>
+
+    <div class="news">
+      <div class="section__head" style="margin-bottom:22px;">
+        <span class="section__eyebrow">News</span>
+        <h2 class="section__title" style="font-size:clamp(24px,4vw,34px);">お知らせ</h2>
+      </div>
+      <div class="news__list" id="newsList"></div>
+    </div>
+  </section>
+
+  <!-- ========== MARCHE ========== -->
+  <section class="panel section section--dark" id="panel-marche">
+    <div class="section__head">
+      <span class="section__eyebrow">Food &amp; Craft / 全14店舗</span>
+      <h2 class="section__title">MARCHE</h2>
+      <p class="section__sub">タップしてメニュー・価格・出店形態を確認。キッチンカーとテントが渚に並ぶ、うみべの縁日。</p>
+    </div>
+    <div class="grid" id="marcheGrid" role="list"></div>
+  </section>
+
+  <!-- ========== ARTIST ========== -->
+  <section class="panel section" id="panel-artist">
+    <div class="section__head">
+      <span class="section__eyebrow">Music / 全11組</span>
+      <h2 class="section__title">LINE UP</h2>
+      <p class="section__sub">タップして各アーティストのプロフィールをチェック。渚のステージに集うシンガー・バンド・ユニットたち。</p>
+    </div>
+    <div class="grid" id="artistGrid" role="list"></div>
+  </section>
+
+  <!-- ========== GUIDELINE ========== -->
+  <section class="panel section" id="panel-guideline">
+    <div class="section__head">
+      <span class="section__eyebrow">Please Read</span>
+      <h2 class="section__title">GUIDELINE</h2>
+      <p class="section__sub">気持ちよく楽しんでいただくための、来場にあたってのお願いです。</p>
+    </div>
+    <p class="draft-note">※このガイドラインはドラフトです。実際のルール（荒天時の対応・駐車場・ペット可否など）が決まり次第、内容を差し替えてください。</p>
+    <div class="guide-list">
+      <div class="guide-item">
+        <h3>荒天時の対応</h3>
+        <p>荒天等により中止・内容変更となる場合があります。開催可否は公式SNS・本サイトにて当日朝までにお知らせします。</p>
+      </div>
+      <div class="guide-item">
+        <h3>ゴミについて</h3>
+        <p>会場にゴミ箱の設置はございません。お持ち帰りにご協力をお願いいたします。</p>
+      </div>
+      <div class="guide-item">
+        <h3>飲酒・喫煙</h3>
+        <p>アルコールは20歳以上の方のみお楽しみいただけます。喫煙は指定エリア以外禁止です。飲酒運転は法律で禁止されています。</p>
+      </div>
+      <div class="guide-item">
+        <h3>ペット同伴</h3>
+        <p>リードの着用、排泄物の処理等マナーを守っていただける場合に限り同伴可能です。他のお客様へのご配慮をお願いします。</p>
+      </div>
+      <div class="guide-item">
+        <h3>火気・発電機の使用</h3>
+        <p>出店者は各店舗の指定エリア内でのみ火気・発電機を使用しています。一般のお客様による会場内での火気使用はご遠慮ください。</p>
+      </div>
+      <div class="guide-item">
+        <h3>撮影・SNS投稿</h3>
+        <p>会場内で撮影した写真・動画のSNS投稿は大歓迎です。他のお客様が映り込む場合は配慮をお願いします。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ACCESS ========== -->
+  <section class="panel section" id="panel-access">
+    <div class="section__head">
+      <span class="section__eyebrow">How to get there</span>
+      <h2 class="section__title">ACCESS</h2>
+    </div>
+    <div class="access-wrap">
+      <div class="access-info">
+        <dl>
+          <dt>会場</dt><dd>新舞子マリンパーク</dd>
+          <dt>住所</dt><dd>〒478-0000 愛知県知多市緑浜町2番地</dd>
+          <dt>電話</dt><dd>0562-56-3980（施設事務所）</dd>
+          <dt>電車</dt><dd>名鉄常滑線「新舞子」駅下車 徒歩約10分</dd>
+          <dt>車</dt><dd>国道155号（西知多産業道路）日長ICから西へ、新舞子グリーンラインを渡ってすぐ</dd>
+          <dt>駐車場</dt><dd>あり（台数に限りがあります。混雑時は近隣コインパーキングもご利用ください）</dd>
+        </dl>
+      </div>
+      <div class="access-map">
+        <iframe title="新舞子マリンパーク 地図" loading="lazy" src="https://maps.google.com/maps?q=%E6%84%9B%E7%9F%A5%E7%9C%8C%E7%9F%A5%E5%A4%9A%E5%B8%82%E7%B7%91%E6%B5%9C%E7%94%BA2&z=16&output=embed"></iframe>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__top">
+    <div class="footer__title">PROJECT<br>Shinmaiko</div>
+    <div class="footer__info">
+      2026.08.09 SUN<br>
+      新舞子マリンパーク（愛知県知多市緑浜町2）<br>
+      ARTIST 11 acts / MARCHE 14 shops
+    </div>
+  </div>
+  <div class="footer__bottom">© 2026 PROJECT Shinmaiko</div>
+</footer>
+
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalName">
+    <button class="modal__close" id="modalClose" aria-label="閉じる">✕</button>
+    <div class="modal__tag" id="modalTag"></div>
+    <h3 class="modal__name" id="modalName"></h3>
+    <div class="modal__role" id="modalRole"></div>
+    <div class="modal__body" id="modalBody"></div>
+    <div id="modalExtra"></div>
+  </div>
+</div>
+
+<script>
+const artists = [
+  {name:"千花（ちか）", role:"SINGER SONGWRITER", body:"愛知を拠点に全国で活動するシンガーソングライター。YouTube・SHOWROOM・X・Instagramなど幅広いネット配信で注目を集め、視聴者とリアルタイムで交流するライブ配信を中心に活動する。透明感とどこか切なさを感じさせる歌声で多くのファンを魅了。釣りメーカー「BASSDAY」イメージガール、日本釣振興会愛知県支部の公式レポーターも務め、WEBアニメ「シンクロ」にダリヤdot.WAV役として声優・歌手出演も控えている。"},
+  {name:"かとう寛之", role:"SINGER SONGWRITER / GUITARIST", body:"知多市出身のシンガーソングライター・ギタリスト・ラジオパーソナリティ・音楽教室講師。（株）エアプレイ所属、知多市ふるさと観光大使。TV「開運！なんでも鑑定団」EDテーマ（2015）、知多市45周年CMソングを手がけ、たま「さよなら人類2023ver」でコーラス参加。2024年11月にウルフルケイスケ氏（ウルフルズ）と共演し、2026年7月に二度目の共演が実現した。"},
+  {name:"村屋光二", role:"KOJI MURAYA", body:"2006年、ロックバンド「redballoon」のボーカル・ギターとしてSony Musicよりメジャーデビュー。『銀魂』テーマソング「雪のツバサ」「銀色の空」がオリコンTOP10入りを記録。2017年にはフランス・パリ「Japan Expo」に出演し日本の音楽を海外へ発信。現在はソロ活動のほかVIVACE、BYMP BANDで活動し、日韓合同オーディション番組『トロット・ガールズ・ジャパン』では総合ヴォイストレーナーを担当。知多市ふるさと観光大使としても地域活性化に取り組む。"},
+  {name:"川口タイガー祐介", role:"SINGER SONGWRITER / PRODUCER", body:"愛知・名古屋を拠点に活動するシンガーソングライター／プロデューサー。2009年に作詞家としてキャリアをスタートし、2019年に1stフルアルバム『TIGERS MANSION』をリリース。弾き語りからバンドサウンドまで自在に行き来し、日常のリアルと内面の葛藤を生々しい言葉で描き出す。現在はBYMP BAND所属。代表作は「今夜も一杯付き合って」。"},
+  {name:"tayutaedo", role:"COPY BAND", body:"昨年末に惜しまれつつ閉店した新舞子Limaをホームに長年活動してきたメンバーで新たに結成した、お酒大好き中年モラトリアムコピーバンド。J-POPやJ-ROCKの名曲を楽しく演奏する。みなさん乾杯しましょう🍻"},
+  {name:"DeLa AA（でらええに）", role:"INSTRUMENTAL BAND", body:"2026年結成。名古屋のベテラン2人と三重の若者2人がコラボしたインストバンド。水谷吉典（Gt）・石垣篤友（E.Bass）・山中颯真（Gt）・濵口あい（Dr）による熱いインタープレイに乞うご期待。"},
+  {name:"Lilsae（りるさえ）", role:"SOLO ARTIST", body:"愛知を拠点に活動するソロアーティスト。ロックを軸に、パンクロック、シューゲイザーなど多様なサウンドを独自に融合させた音楽を創り出す。SNSを中心に活動を展開し、TikTokでは10万人を超えるフォロワーを持つオンライン発アーティストとして注目を集めている。"},
+  {name:"CANDY☆BLUE DIAMOND", role:"OLDIES & ROCK'N'ROLL BAND", body:"懐かしいオールディーズのナンバーや昭和歌謡のロカビリーなアレンジで踊りだしたくなるハッピーなライブをお届け。ロカビリーユニット「CANDY☆BLUE」のAKIRA（Gt/Vo）とCatherine（MC/Vo）を中心に、ドラム・ベース・ギター・キーボードが加わった大人のロックンロールバンド。海や夏を意識したナンバーをロカビリー／オールディーズのロックンロールで届ける。"},
+  {name:"塵と束（チリとタバ）", role:"EXPERIMENTAL UNIT", body:"PROJECT Shinmaikoで結成した、男と女の実験的音楽ユニット。ボーカル曲があったり、同じフレーズを10分くらい演奏したりとカオスすぎて、最終的にちゃんと終われるのか本人たちもわかっていない。今回が初ライブ。"},
+  {name:"NOVALY", role:"EVENT TEAM", body:"イベントチームとして活動。まだまだ未熟だが、会場の皆を楽しませるパフォーマンスを披露する。"},
+  {name:"KOKOPELLI", role:"TRIPLE OCARINA UNIT", body:"トリプルオカリナの魅力を伝えるために、ここぺりん星からやってきた3人組。若い世代にもオカリナを知ってもらうため、オカリナのイメージを変えるため、ノリノリな曲を中心に演奏している。"}
+];
+
+const marche = [
+  {name:"キッチン炭火屋", form:"キッチンカー", body:"元宮崎県民だからこそできる、本場・宮崎の味をご提供。宮崎の養鶏場から直送された新鮮な地鶏を豪快に焼き上げ、燻すことで本場の地鶏焼きを再現する。この地域では珍しい骨付きフランクもおすすめ。", menu:[["鶏の炭火焼（中）","800円"],["鶏の炭火焼（大）","1,200円"],["骨付きフランク","600円"],["袋入りかき氷","250円"],["缶スーパードライ","500円"],["缶発泡酒","450円"],["缶ハイボール","450円"],["缶サワー","400円"],["ジュース","300円"]], facility:"火気を使用"},
+  {name:"あまおと珈琲", form:"キッチンカー", body:"知多市の自家焙煎珈琲豆店。手廻し焙煎機で少量ずつ丁寧に焙煎した新鮮な珈琲豆を使用し、焼きたての美味しさをお届け。当日はハンドドリップ珈琲やカフェオレ、珈琲ソーダ、アフォガートのほか、知多ハイボールや珈琲豆の販売も。フロート、珈琲ソーダ、豆、ドリップバッグ、知多木綿珈琲フィルターなども販売予定。\nInstagram：@amaoto_coffee", menu:[["ハンドドリップ珈琲","600円"],["カフェオレ","650円"],["カフェモカ","700円"],["アフォガート","650円"],["知多ハイボール","1,000円"],["知多珈琲ハイボール","1,100円"]], facility:"火気使用／湯沸かし：カセットコンロ／電源：ポータブルバッテリー／軽トラサイズ"},
+  {name:"ヒゲタコ", form:"キッチンカー", body:"独自配合のオリジナル生地で焼き上げる「究極のふわとろたこ焼き」。外はふわっと、中はとろ〜り。一口食べれば濃厚な出汁の旨みが広がる。素材にも焼き加減にもこだわった、冷めても美味しい自慢のたこ焼き。", menu:[["たこ焼き各種","700〜850円"],["かき氷","500円"],["いちごけずり","600円"],["ラムネ","300円"],["ハイボール","500円"],["ビール","500円"],["ノンアルコール","400円"]], facility:"火気を使用"},
+  {name:"Kokone", form:"テント出店", body:"CBD配合のドライヘッドスパで、頭も心もスッキリ軽やかに。海外でも健康維持のために親しまれている植物由来成分「CBD」を取り入れた珍しいヘッドスパを体験できる。イベントの合間に、自分へのちょっとしたご褒美をどうぞ。当日はCBD商品の販売も予定。", menu:[["ドライヘッドスパ 10分","1,000円"],["CBD商品販売","あり"]], facility:"火気なし"},
+  {name:"Sunny's（サニーズ知多店）", form:"キッチンカー", body:"クレープのキッチンカー。甘い香りと、ふんわりもちもちの生地が自慢で、注文を受けてから一枚ずつ丁寧に焼き上げる。アイスをのせたクレープもあり。", menu:[["クレープ各種","550〜700円"],["アイスティー","500円"],["氷カフェコーヒー","600円"]], facility:"火気を使用"},
+  {name:"BeanS BOY", form:"テント出店", body:"普段は福祉施設で働きながら、自家焙煎コーヒーを手掛ける。コーヒーが苦手な方でも飲みやすい、すっきりとした味わいを目指して一杯一杯丁寧に焙煎。一期一会のコーヒーとの出会いを楽しめる。", menu:[["コロンビア クレオパトラ","500円"],["ブラジル サントスNo.2","500円"],["メキシコ アナエロビック","600円"],["パプアニューギニア マッドマン","600円"],["ブラジル デカフェ","600円"],["ジュース","200円"]], facility:"火気を使用"},
+  {name:"Eatluck", form:"キッチンカー", body:"夏にぴったりの「キンキンみかん」と、さまざまな味が楽しめるロングチュロスをご用意。暑い夏にぴったりな冷たいスイーツと、食べ歩きにもぴったりのチュロス。", menu:[["チュロス","600円"],["かき氷","500円"],["キンキンみかん","500円"],["アルコール","500円"],["ドリンク各種","200〜500円"]], facility:"火気を使用"},
+  {name:"だいてつ", form:"キッチンカー", body:"担当：伊藤正興さん。「地産地消」をテーマに、知多半島の美味しさをお届け。卵や野菜、えびせんべいなど知多半島産の食材を使用したメニューが並ぶ。", menu:[["焼きそば","600円"],["オムそば","850円"],["フランクフルト","300円"],["からあげ","500円"],["たません","400／700円"],["かき氷","400／600円"],["冷凍みかん・ピーチ","500／800円"],["レモネードソーダ","400円"],["カラフルソーダ","400円"],["コーラ","100円"],["ハイボール","500円"],["コークハイ","500円"],["日本酒ハイボール","500円"],["レモンサワー","500円"]], facility:"発電機を使用"},
+  {name:"Le manger（ル・マンジェ）", form:"キッチンカー", body:"ファーマーズトラック。農園で採れた新鮮な野菜やはちみつをたっぷり使ったスープやホットドッグ、アイスをご用意。当日は採れたて野菜の販売もあり。", menu:[["野菜スープセット","600円"],["ホットドッグ","500円"],["はちみつアイス（ミルク）","500円"],["はちみつアイス（ハスカップ）","550円"],["はちみつクリームソーダ","600円"],["季節のフルーツアイス","700円"],["野菜","100円〜"]], facility:"火気なし／ポータブル電源を使用"},
+  {name:"揚げ物専門店A（エース）", form:"キッチンカー", body:"担当：成田さん。サクッと揚げたて、一口食べれば止まらない。看板メニューの「悪魔的ニンニクからあげ」はパンチの効いたニンニクの旨みとジュワッとあふれる肉汁がやみつき。外はカリッと中はぷりぷりの「タコ唐揚げ」もお酒のお供に。", menu:[["からあげ","700円"],["タコ唐揚げ S／W","600／1,000円"],["フライドポテト","500円"],["鶏皮揚げ餃子","500円"],["コロッケ類","400〜450円"],["エビのフリッター","500円"],["串カツ（味噌・ソース）","200〜500円"],["ソフトドリンク","200円"],["アルコール缶","400〜500円"],["かき氷","400円"]], facility:"火気を使用"},
+  {name:"GIRASSOL", form:"テント出店", body:"担当：野口ファビアナさん。耳ツボジュエリー。おしゃれを楽しみながら耳のツボをやさしく刺激。耳には全身につながる様々なツボがあるとされ、お悩みに合わせてツボを選び施術。肩・首まわりやむくみ、目の疲れが気になる方にもおすすめ。見た目もかわいくアクセサリー感覚で楽しめる。", menu:[["子ども 両耳6個","500円"],["大人 両耳8個","1,000円"],["大人 両耳12個","1,200円"],["ボディペイント","実施の可能性あり"]], facility:"火気なし"},
+  {name:"キングチキン", form:"テント出店", body:"24時間じっくり特製だれに漬け込んだ「熟成醤油唐揚げ」。しっかりと味を染み込ませた自慢の唐揚げを会場で。", menu:[["かき氷","400円"],["チョコバナナ","400円"],["いちご飴","400円"],["冷凍みかん","400円"],["唐揚げ","500円"],["ポテト","400円"],["レモンサワー","400円"],["ハイボール","500円"]], facility:"発電機を使用／電気フライヤー・カセットコンロ使用"},
+  {name:"hono/hono/cafe'", form:"キッチンカー", body:"田原ポーク100％のオリジナルロングウインナーを使用したホットドッグ。こだわりのバゲットは外はパリッ、中はふんわり。ジューシーなウインナーと合わせた食べ応えたっぷりのボリューミーな一品。", menu:[["ホットドッグ各種","750〜1,200円"],["フランク","700円"],["かき氷","500〜600円"],["ドリンク","400〜600円"],["冷凍フルーツ","500円"]], facility:"火気を使用"},
+  {name:"AK KITCHEN", form:"キッチンカー", body:"担当：榊原さん。注文を受けてから焼き上げる焼きたてホットサンドが主役。暑い夏にうれしいかき氷や冷たいドリンクもご用意。", menu:[["ホットサンド各種","700円"],["ホットサンド各種ハーフ","450円"],["揚げフランク","500円"],["ポテト","400円"],["チュロス","400円"],["かき氷各種","400円"],["ビール","500円"],["ハイボール","450円"],["レモンサワー","400円"],["ドリンク各種","350〜500円"]], facility:"発電機を使用"}
+];
+
+const news = [
+  {date:"2026.07.25", tag:"info", tagLabel:"INFO", title:"「PROJECT Shinmaiko 第0回」開催決定", excerpt:"8/9(日) 新舞子マリンパークにて、音楽とマルシェの一日を開催します。", goto:"top"},
+  {date:"2026.07.25", tag:"artist", tagLabel:"LINEUP", title:"出演アーティスト11組を発表", excerpt:"千花、かとう寛之、村屋光二ほか、渚のステージに集うラインナップを公開。", goto:"artist"},
+  {date:"2026.07.25", tag:"marche", tagLabel:"MARCHE", title:"マルシェ出店14店舗を発表", excerpt:"キッチンカー・テント出店あわせて14店舗が集結。フード・ドリンク・体験まで。", goto:"marche"},
+  {date:"2026.07.25", tag:"info", tagLabel:"INFO", title:"アクセス・ガイドラインを公開", excerpt:"会場までのアクセスと、当日の来場ルールをまとめました。", goto:"access"}
+];
+
+const artistGrid = document.getElementById('artistGrid');
+const marcheGrid = document.getElementById('marcheGrid');
+const newsList = document.getElementById('newsList');
+
+artists.forEach((a, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'tile';
+  btn.setAttribute('role','listitem');
+  btn.innerHTML = `<span class="tile__tag">ARTIST ${String(i+1).padStart(2,'0')}</span>
+    <span class="tile__name">${a.name}</span>
+    <span class="tile__role">${a.role}</span>`;
+  btn.addEventListener('click', () => openModal({tag:'Artist', name:a.name, role:a.role, body:a.body}));
+  artistGrid.appendChild(btn);
+});
+
+marche.forEach((m, i) => {
+  const btn = document.createElement('button');
+  btn.className = 'stall';
+  btn.setAttribute('role','listitem');
+  btn.innerHTML = `<span class="stall__no">MARCHE ${String(i+1).padStart(2,'0')}</span>
+    <span class="stall__form">${m.form}</span>
+    <span class="stall__name">${m.name}</span>`;
+  btn.addEventListener('click', () => openModal({tag:'Marche', name:m.name, role:m.form, body:m.body, menu:m.menu, facility:m.facility}));
+  marcheGrid.appendChild(btn);
+});
+
+news.forEach(n => {
+  const btn = document.createElement('button');
+  btn.className = 'news__item';
+  btn.innerHTML = `<span class="news__date">${n.date}</span>
+    <span class="news__tag tag-${n.tag}">${n.tagLabel}</span>
+    <span class="news__body">
+      <p class="news__title">${n.title}</p>
+      <p class="news__excerpt">${n.excerpt}</p>
+    </span>
+    <span class="news__arrow">→</span>`;
+  btn.addEventListener('click', () => switchTab(n.goto));
+  newsList.appendChild(btn);
+});
+
+/* ---------- tab switching ---------- */
+const tabButtons = document.querySelectorAll('.tab');
+const panels = document.querySelectorAll('.panel');
+
+function switchTab(name){
+  tabButtons.forEach(b => b.classList.toggle('active', b.dataset.tab === name));
+  panels.forEach(p => p.classList.toggle('active', p.id === 'panel-' + name));
+  window.scrollTo({top:0, behavior:'instant' in window ? 'instant' : 'auto'});
+  history.replaceState(null, '', '#' + name);
+}
+
+tabButtons.forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
+
+const initial = (location.hash || '#top').replace('#','');
+const valid = ['top','marche','artist','guideline','access'];
+switchTab(valid.includes(initial) ? initial : 'top');
+
+/* ---------- modal ---------- */
+const overlay = document.getElementById('overlay');
+const modalTag = document.getElementById('modalTag');
+const modalName = document.getElementById('modalName');
+const modalRole = document.getElementById('modalRole');
+const modalBody = document.getElementById('modalBody');
+const modalExtra = document.getElementById('modalExtra');
+let lastFocused = null;
+
+function openModal(data){
+  lastFocused = document.activeElement;
+  modalTag.textContent = data.tag;
+  modalName.textContent = data.name;
+  modalRole.textContent = data.role;
+  modalBody.textContent = data.body;
+
+  modalExtra.innerHTML = '';
+  if (data.menu){
+    const title = document.createElement('div');
+    title.className = 'modal__section-title';
+    title.textContent = 'Menu';
+    const list = document.createElement('ul');
+    list.className = 'menu-list';
+    data.menu.forEach(([n,p]) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${n}</span><span class="price">${p}</span>`;
+      list.appendChild(li);
+    });
+    modalExtra.appendChild(title);
+    modalExtra.appendChild(list);
+  }
+  if (data.facility){
+    const ftitle = document.createElement('div');
+    ftitle.className = 'modal__section-title';
+    ftitle.textContent = 'Facility';
+    const chip = document.createElement('div');
+    chip.className = 'facility';
+    chip.textContent = data.facility;
+    modalExtra.appendChild(ftitle);
+    modalExtra.appendChild(chip);
+  }
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modalClose').focus();
+}
+
+function closeModal(){
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  if (lastFocused) lastFocused.focus();
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && overlay.classList.contains('open')) closeModal(); });
+</script>
+</body>
+</html>
