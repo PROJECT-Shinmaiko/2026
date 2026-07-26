@@ -238,7 +238,7 @@
     background:rgba(255,255,255,0.22); border-color:var(--gold);
   }
   .artist-card__photo{
-    width:100%; height:150px; object-fit:cover; display:block;
+    width:100%; height:150px; object-fit:cover; object-position:center 15%; display:block;
     transition:transform .35s ease;
   }
   .artist-card:hover .artist-card__photo, .artist-card:focus-visible .artist-card__photo{
@@ -381,7 +381,7 @@
   .artist-modal__close:hover{background:var(--coral); border-color:var(--coral);}
   .artist-modal__photo-col{flex:0 0 auto; position:relative;}
   @media(min-width:760px){ .artist-modal__photo-col{flex:0 0 42%;} }
-  .artist-modal__photo{width:100%; height:260px; object-fit:cover; display:block;}
+  .artist-modal__photo{width:100%; height:260px; object-fit:cover; object-position:center 15%; display:block;}
   @media(min-width:760px){ .artist-modal__photo{height:100%; min-height:100%;} }
   .artist-modal__info-col{
     flex:1; min-width:0; padding:clamp(24px,4vw,44px);
@@ -721,13 +721,13 @@
 <script>
 
 const artists = [
-  {id:"chika", name:"千花（ちか）", time:"", image:"images/chika-1.jpg", role:"SINGER SONGWRITER", description:"愛知を拠点に全国で活動するシンガーソングライター。YouTube・SHOWROOM・X・Instagramなど幅広いネット配信で注目を集め、視聴者とリアルタイムで交流するライブ配信を中心に活動する。透明感とどこか切なさを感じさせる歌声で多くのファンを魅了。釣りメーカー「BASSDAY」イメージガール、日本釣振興会愛知県支部の公式レポーターも務め、WEBアニメ「シンクロ」にダリヤdot.WAV役として声優・歌手出演も控えている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"chika", name:"千花", time:"", image:"images/chika-1.jpg", role:"SINGER SONGWRITER", description:"愛知を拠点に全国で活動するシンガーソングライター。YouTube・SHOWROOM・X・Instagramなど幅広いネット配信で注目を集め、視聴者とリアルタイムで交流するライブ配信を中心に活動する。透明感とどこか切なさを感じさせる歌声で多くのファンを魅了。釣りメーカー「BASSDAY」イメージガール、日本釣振興会愛知県支部の公式レポーターも務め、WEBアニメ「シンクロ」にダリヤdot.WAV役として声優・歌手出演も控えている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"kato-hiroyuki", name:"かとう寛之", time:"", image:"images/kato-hiroyuki-1.jpg", role:"SINGER SONGWRITER / GUITARIST", description:"知多市出身のシンガーソングライター・ギタリスト・ラジオパーソナリティ・音楽教室講師。（株）エアプレイ所属、知多市ふるさと観光大使。TV「開運！なんでも鑑定団」EDテーマ（2015）、知多市45周年CMソングを手がけ、たま「さよなら人類2023ver」でコーラス参加。2024年11月にウルフルケイスケ氏（ウルフルズ）と共演し、2026年7月に二度目の共演が実現した。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"muraya-koji", name:"村屋光二", time:"", image:"images/muraya-koji-1.jpg", role:"KOJI MURAYA", description:"2006年、ロックバンド「redballoon」のボーカル・ギターとしてSony Musicよりメジャーデビュー。『銀魂』テーマソング「雪のツバサ」「銀色の空」がオリコンTOP10入りを記録。2017年にはフランス・パリ「Japan Expo」に出演し日本の音楽を海外へ発信。現在はソロ活動のほかVIVACE、BYMP BANDで活動し、日韓合同オーディション番組『トロット・ガールズ・ジャパン』では総合ヴォイストレーナーを担当。知多市ふるさと観光大使としても地域活性化に取り組む。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"kawaguchi-tiger", name:"川口タイガー祐介", time:"", image:"images/kawaguchi-tiger-1.jpg", role:"SINGER SONGWRITER / PRODUCER", description:"愛知・名古屋を拠点に活動するシンガーソングライター／プロデューサー。2009年に作詞家としてキャリアをスタートし、2019年に1stフルアルバム『TIGERS MANSION』をリリース。弾き語りからバンドサウンドまで自在に行き来し、日常のリアルと内面の葛藤を生々しい言葉で描き出す。現在はBYMP BAND所属。代表作は「今夜も一杯付き合って」。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"tayutaedo", name:"tayutaedo", time:"", image:"images/tayutaedo-1.jpg", role:"COPY BAND", description:"昨年末に惜しまれつつ閉店した新舞子Limaをホームに長年活動してきたメンバーで新たに結成した、お酒大好き中年モラトリアムコピーバンド。J-POPやJ-ROCKの名曲を楽しく演奏する。みなさん乾杯しましょう🍻", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"dela-aa", name:"DeLa AA（でらええに）", time:"", image:"images/delaaa-1.jpg", role:"INSTRUMENTAL BAND", description:"2026年結成。名古屋のベテラン2人と三重の若者2人がコラボしたインストバンド。水谷吉典（Gt）・石垣篤友（E.Bass）・山中颯真（Gt）・濵口あい（Dr）による熱いインタープレイに乞うご期待。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"lilsae", name:"Lilsae（りるさえ）", time:"", image:"images/lilsae-1.jpg", role:"SOLO ARTIST", description:"愛知を拠点に活動するソロアーティスト。ロックを軸に、パンクロック、シューゲイザーなど多様なサウンドを独自に融合させた音楽を創り出す。SNSを中心に活動を展開し、TikTokでは10万人を超えるフォロワーを持つオンライン発アーティストとして注目を集めている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"lilsae", name:"Lilsae", time:"", image:"images/lilsae-1.jpg", role:"SOLO ARTIST", description:"愛知を拠点に活動するソロアーティスト。ロックを軸に、パンクロック、シューゲイザーなど多様なサウンドを独自に融合させた音楽を創り出す。SNSを中心に活動を展開し、TikTokでは10万人を超えるフォロワーを持つオンライン発アーティストとして注目を集めている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"candyblue-diamond", name:"CANDY☆BLUE DIAMOND", time:"", image:"images/candyblue-diamond-1.jpg", role:"OLDIES & ROCK'N'ROLL BAND", description:"懐かしいオールディーズのナンバーや昭和歌謡のロカビリーなアレンジで踊りだしたくなるハッピーなライブをお届け。ロカビリーユニット「CANDY☆BLUE」のAKIRA（Gt/Vo）とCatherine（MC/Vo）を中心に、ドラム・ベース・ギター・キーボードが加わった大人のロックンロールバンド。海や夏を意識したナンバーをロカビリー／オールディーズのロックンロールで届ける。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"chiritotaba", name:"塵と束（チリとタバ）", time:"", image:"images/chiritotaba-1.jpg", role:"EXPERIMENTAL UNIT", description:"PROJECT Shinmaikoで結成した、男と女の実験的音楽ユニット。ボーカル曲があったり、同じフレーズを10分くらい演奏したりとカオスすぎて、最終的にちゃんと終われるのか本人たちもわかっていない。今回が初ライブ。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"novaly", name:"NOVALY", time:"", image:"images/novaly-1.jpg", role:"EVENT TEAM", description:"イベントチームとして活動。まだまだ未熟だが、会場の皆を楽しませるパフォーマンスを披露する。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
