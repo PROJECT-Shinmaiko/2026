@@ -59,10 +59,10 @@
   /* ---------- nav / tabs ---------- */
   .nav{
     position:sticky; top:0; z-index:100;
-    background:var(--card-bg);
+    background:rgba(7,58,84,0.6);
     backdrop-filter:blur(14px);
     -webkit-backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--card-border);
+    border-bottom:1px solid rgba(255,255,255,0.18);
   }
   .nav__top{
     display:flex; align-items:center; justify-content:space-between;
@@ -75,9 +75,10 @@
     letter-spacing:.06em;
     text-transform:uppercase;
     color:var(--white);
+    text-shadow:0 1px 4px rgba(0,0,0,0.35);
   }
   .nav__brand span{color:var(--coral);}
-  .nav__date{font-family:var(--font-condensed); font-weight:500; letter-spacing:.06em; text-transform:uppercase; font-size:11px; opacity:.75; display:none; color:var(--white);}
+  .nav__date{font-family:var(--font-condensed); font-weight:500; letter-spacing:.06em; text-transform:uppercase; font-size:11px; opacity:.85; display:none; color:var(--white); text-shadow:0 1px 4px rgba(0,0,0,0.35);}
   @media(min-width:640px){.nav__date{display:block;}}
 
   .tabs{
@@ -89,17 +90,19 @@
   .tabs::-webkit-scrollbar{display:none;}
   .tab{
     flex:0 0 auto;
-    background:var(--card-bg); border:1px solid var(--card-border);
+    background:rgba(7,58,84,0.4); border:1px solid rgba(255,255,255,0.4);
     backdrop-filter:blur(8px);
     padding:9px 18px;
     font-family:var(--font-condensed); font-weight:500; font-size:12px; letter-spacing:.06em; text-transform:uppercase;
-    border-radius:999px; cursor:pointer; color:var(--white); opacity:.78;
+    border-radius:999px; cursor:pointer; color:var(--white); opacity:.92;
+    text-shadow:0 1px 4px rgba(0,0,0,0.35);
     transition:all .2s ease;
     white-space:nowrap;
   }
   .tab:hover{opacity:1;}
   .tab.active{
     background:var(--white); color:var(--ink); border-color:var(--white); opacity:1;
+    text-shadow:none;
   }
 
   /* ---------- panels ---------- */
@@ -128,7 +131,7 @@
     overflow:hidden;
   }
   .banner__sun img{width:100%; height:100%; object-fit:cover; display:block; border-radius:50%;}
-  .banner__eyebrow{font-family:var(--font-jp-body); font-size:13px; letter-spacing:.08em; opacity:.9; margin:0 0 14px;}
+  .banner__eyebrow{font-family:var(--font-jp-body); font-size:14.5px; letter-spacing:.08em; opacity:.9; margin:0 0 14px;}
   .banner h1{
     font-family:var(--font-display); font-weight:400;
     font-size:clamp(44px,9vw,104px); line-height:.92; margin:0;
@@ -144,7 +147,7 @@
     font-size:clamp(18px,2.6vw,26px); margin:18px 0 0;
   }
   .banner__lead{
-    font-family:var(--font-jp-body); font-size:14px; line-height:1.9; opacity:.92;
+    font-family:var(--font-jp-body); font-size:16px; line-height:1.9; opacity:.92;
     max-width:56ch; margin:12px 0 0;
   }
   .banner__meta div{border-left:2px solid rgba(255,255,255,0.4); padding-left:12px;}
@@ -160,7 +163,7 @@
   .section__head{display:flex; flex-direction:column; gap:6px; margin-bottom:clamp(26px,4vw,44px);}
   .section__eyebrow{font-family:var(--font-condensed); font-weight:500; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold);}
   .section__title{font-family:var(--font-display); font-weight:400; font-size:clamp(40px,7vw,84px); line-height:.9; letter-spacing:.02em; text-transform:uppercase; margin:0;}
-  .section__sub{font-size:14px; opacity:.85; max-width:56ch; margin-top:4px;}
+  .section__sub{font-size:16px; opacity:.85; max-width:56ch; margin-top:4px; line-height:1.7;}
 
   /* ---------- section themes ---------- */
   /* ARTIST: turquoise flowing into blue-gray, multi-layer light */
@@ -233,8 +236,8 @@
   .news__tag.tag-marche{background:var(--grass);}
   .news__tag.tag-info{background:var(--bluegray);}
   .news__body{flex:1 1 100%; min-width:0; order:4;}
-  .news__title{font-family:var(--font-jp-heading); font-weight:700; letter-spacing:.02em; font-size:15px; margin:0;}
-  .news__excerpt{font-size:12.5px; opacity:.7; margin:3px 0 0; line-height:1.9;}
+  .news__title{font-family:var(--font-jp-heading); font-weight:700; letter-spacing:.02em; font-size:16px; margin:0;}
+  .news__excerpt{font-size:14px; opacity:.75; margin:3px 0 0; line-height:1.8;}
   .news__arrow{opacity:.45; font-family:var(--font-condensed); position:absolute; top:18px; right:20px; order:5;}
   @media(min-width:640px){
     .news__item{flex-wrap:nowrap; padding:18px 20px;}
@@ -329,7 +332,7 @@
   .vendor-card__no{font-family:var(--font-condensed); font-weight:600; letter-spacing:.1em; text-transform:uppercase; font-size:11px; opacity:.7;}
   .vendor-card__cats{display:flex; flex-wrap:wrap; margin-top:8px;}
   .vendor-card__name{font-family:var(--font-jp-heading); font-weight:700; letter-spacing:.02em; font-size:clamp(17px,2vw,21px); margin-top:8px; line-height:1.25;}
-  .vendor-card__pick{font-family:var(--font-jp-body); font-size:12px; opacity:.85; margin-top:6px;}
+  .vendor-card__pick{font-family:var(--font-jp-body); font-size:13.5px; opacity:.85; margin-top:6px;}
   .vendor-card__view{
     font-family:var(--font-condensed); font-weight:500; font-size:10px; letter-spacing:.1em; text-transform:uppercase;
     color:var(--gold); margin-top:10px; opacity:.9;
@@ -353,7 +356,7 @@
 
   .sunset-intro{margin-bottom:28px;}
   .sunset-intro__title{font-family:var(--font-jp-heading); font-weight:800; letter-spacing:.02em; font-size:clamp(20px,3vw,26px); margin:0 0 14px;}
-  .sunset-intro p{font-family:var(--font-jp-body); font-size:15px; line-height:2; margin:0;}
+  .sunset-intro p{font-family:var(--font-jp-body); font-size:16px; line-height:2; margin:0;}
 
   .sunset-card{
     background:linear-gradient(135deg, rgba(255,200,61,0.24), rgba(255,114,87,0.2));
@@ -375,7 +378,7 @@
     border-radius:2px 12px 12px 2px;
     padding:14px 18px; margin-bottom:12px;
   }
-  .sunset-notice p{font-family:var(--font-jp-body); font-size:12.5px; line-height:1.9; margin:0 0 6px; opacity:.9;}
+  .sunset-notice p{font-family:var(--font-jp-body); font-size:14px; line-height:1.9; margin:0 0 6px; opacity:.9;}
   .sunset-notice p:last-child{margin-bottom:0;}
 
   /* ---------- access ---------- */
@@ -386,8 +389,8 @@
     font-family:var(--font-jp-heading); font-weight:800; letter-spacing:.02em; font-size:18px;
     color:var(--gold); margin:0 0 8px; padding-bottom:8px; border-bottom:2px solid rgba(255,255,255,0.25);
   }
-  .access-block__text{font-size:14px; line-height:1.9; margin:0;}
-  .access-venue{font-size:13px; line-height:1.9; opacity:.85; margin:0; padding-top:14px; border-top:1px dashed rgba(255,255,255,0.25);}
+  .access-block__text{font-size:16px; line-height:1.9; margin:0;}
+  .access-venue{font-size:14px; line-height:1.9; opacity:.85; margin:0; padding-top:14px; border-top:1px dashed rgba(255,255,255,0.25);}
   .access-map{border-radius:16px; overflow:hidden; border:1px solid var(--card-border); box-shadow:var(--card-shadow); min-height:320px;}
   .access-map iframe{width:100%; height:100%; min-height:320px; border:0; display:block;}
 
@@ -444,8 +447,8 @@
   }
   .artist-modal__tag{font-family:var(--font-condensed); font-weight:600; font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold);}
   .artist-modal__name{font-family:var(--font-jp-heading); font-weight:800; letter-spacing:.02em; font-size:clamp(24px,4vw,36px); margin:10px 0 4px; line-height:1.2;}
-  .artist-modal__time{font-family:var(--font-condensed); font-weight:500; letter-spacing:.04em; font-size:13px; color:var(--paleaqua); margin-bottom:16px;}
-  .artist-modal__desc{font-family:var(--font-jp-body); font-size:15px; line-height:1.9; opacity:.95; margin:0 0 22px; white-space:pre-line;}
+  .artist-modal__time{font-family:var(--font-condensed); font-weight:500; letter-spacing:.04em; font-size:14px; color:var(--paleaqua); margin-bottom:16px;}
+  .artist-modal__desc{font-family:var(--font-jp-body); font-size:17px; line-height:1.9; opacity:.95; margin:0 0 22px; white-space:pre-line;}
   .artist-modal__site{
     display:inline-flex; align-self:flex-start; align-items:center; gap:6px;
     font-family:var(--font-condensed); font-weight:600; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
@@ -521,7 +524,7 @@
   }
   .vendor-modal__cats{display:flex; flex-wrap:wrap; margin-bottom:4px;}
   .vendor-modal__name{font-family:var(--font-jp-heading); font-weight:800; letter-spacing:.02em; font-size:clamp(24px,4vw,34px); margin:8px 0 12px; line-height:1.2;}
-  .vendor-modal__desc{font-family:var(--font-jp-body); font-size:14.5px; line-height:1.9; margin:0 0 20px; white-space:pre-line;}
+  .vendor-modal__desc{font-family:var(--font-jp-body); font-size:16px; line-height:1.9; margin:0 0 20px; white-space:pre-line;}
   .vendor-modal__menu-group{margin-bottom:18px;}
   .vendor-modal__menu-cat{
     display:inline-block; font-family:var(--font-condensed); font-weight:600; font-size:10px; letter-spacing:.12em; text-transform:uppercase;
@@ -529,8 +532,8 @@
   }
   .vendor-menu-list{list-style:none; margin:0; padding:0; display:grid; gap:2px;}
   .vendor-menu-list li{
-    display:flex; justify-content:space-between; gap:12px; padding:8px 0;
-    border-bottom:1px dashed rgba(7,58,84,0.16); font-size:14px; font-family:var(--font-jp-body);
+    display:flex; justify-content:space-between; gap:12px; padding:9px 0;
+    border-bottom:1px dashed rgba(7,58,84,0.16); font-size:15.5px; font-family:var(--font-jp-body);
   }
   .vendor-menu-list .price{font-family:var(--font-condensed); font-weight:600; letter-spacing:.02em; white-space:nowrap;}
   .vendor-modal__notes{
@@ -680,38 +683,6 @@
       <p>※未成年者の飲酒は法律で禁止されています。お酒は20歳になってから。</p>
       <p>※飲酒運転は絶対におやめください。お車を運転される方への酒類の提供はできません。</p>
     </div>
-
-    <div class="section__head" style="margin-top:52px;">
-      <span class="section__eyebrow">Please Read</span>
-      <h3 class="sunset-intro__title">来場にあたってのお願い</h3>
-    </div>
-    <p class="draft-note">※このガイドラインはドラフトです。実際のルール（荒天時の対応・駐車場・ペット可否など）が決まり次第、内容を差し替えてください。</p>
-    <div class="guide-list">
-      <div class="guide-item">
-        <h3>荒天時の対応</h3>
-        <p>荒天等により中止・内容変更となる場合があります。開催可否は公式SNS・本サイトにて当日朝までにお知らせします。</p>
-      </div>
-      <div class="guide-item">
-        <h3>ゴミについて</h3>
-        <p>会場にゴミ箱の設置はございません。お持ち帰りにご協力をお願いいたします。</p>
-      </div>
-      <div class="guide-item">
-        <h3>飲酒・喫煙</h3>
-        <p>アルコールは20歳以上の方のみお楽しみいただけます。喫煙は指定エリア以外禁止です。飲酒運転は法律で禁止されています。</p>
-      </div>
-      <div class="guide-item">
-        <h3>ペット同伴</h3>
-        <p>リードの着用、排泄物の処理等マナーを守っていただける場合に限り同伴可能です。他のお客様へのご配慮をお願いします。</p>
-      </div>
-      <div class="guide-item">
-        <h3>火気・発電機の使用</h3>
-        <p>出店者は各店舗の指定エリア内でのみ火気・発電機を使用しています。一般のお客様による会場内での火気使用はご遠慮ください。</p>
-      </div>
-      <div class="guide-item">
-        <h3>撮影・SNS投稿</h3>
-        <p>会場内で撮影した写真・動画のSNS投稿は大歓迎です。他のお客様が映り込む場合は配慮をお願いします。</p>
-      </div>
-    </div>
   </section>
 
   <!-- ========== ACCESS ========== -->
@@ -804,11 +775,11 @@
 const artists = [
   {id:"chika", name:"千花", time:"", image:"images/chika-1.jpg", role:"SINGER SONGWRITER", description:"愛知を拠点に全国で活動するシンガーソングライター。YouTube・SHOWROOM・X・Instagramなど幅広いネット配信で注目を集め、視聴者とリアルタイムで交流するライブ配信を中心に活動する。透明感とどこか切なさを感じさせる歌声で多くのファンを魅了。釣りメーカー「BASSDAY」イメージガール、日本釣振興会愛知県支部の公式レポーターも務め、WEBアニメ「シンクロ」にダリヤdot.WAV役として声優・歌手出演も控えている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"kato-hiroyuki", name:"かとう寛之", time:"", image:"images/kato-hiroyuki-1.jpg", role:"SINGER SONGWRITER / GUITARIST", description:"知多市出身のシンガーソングライター・ギタリスト・ラジオパーソナリティ・音楽教室講師。（株）エアプレイ所属、知多市ふるさと観光大使。TV「開運！なんでも鑑定団」EDテーマ（2015）、知多市45周年CMソングを手がけ、たま「さよなら人類2023ver」でコーラス参加。2024年11月にウルフルケイスケ氏（ウルフルズ）と共演し、2026年7月に二度目の共演が実現した。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"muraya-koji", name:"村屋光二", time:"", image:"images/muraya-koji-1.jpg", role:"KOJI MURAYA", description:"2006年、ロックバンド「redballoon」のボーカル・ギターとしてSony Musicよりメジャーデビュー。『銀魂』テーマソング「雪のツバサ」「銀色の空」がオリコンTOP10入りを記録。2017年にはフランス・パリ「Japan Expo」に出演し日本の音楽を海外へ発信。現在はソロ活動のほかVIVACE、BYMP BANDで活動し、日韓合同オーディション番組『トロット・ガールズ・ジャパン』では総合ヴォイストレーナーを担当。知多市ふるさと観光大使としても地域活性化に取り組む。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"muraya-koji", name:"村屋光二", time:"", image:"images/muraya-koji-1.jpg", role:"SINGER SONGWRITER / PRODUCER", description:"2006年、ロックバンド「redballoon」のボーカル・ギターとしてSony Musicよりメジャーデビュー。『銀魂』テーマソング「雪のツバサ」「銀色の空」がオリコンTOP10入りを記録。2017年にはフランス・パリ「Japan Expo」に出演し日本の音楽を海外へ発信。現在はソロ活動のほかVIVACE、BYMP BANDで活動し、日韓合同オーディション番組『トロット・ガールズ・ジャパン』では総合ヴォイストレーナーを担当。知多市ふるさと観光大使としても地域活性化に取り組む。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"kawaguchi-tiger", name:"川口タイガー祐介", time:"", image:"images/kawaguchi-tiger-1.jpg", role:"SINGER SONGWRITER / PRODUCER", description:"愛知・名古屋を拠点に活動するシンガーソングライター／プロデューサー。2009年に作詞家としてキャリアをスタートし、2019年に1stフルアルバム『TIGERS MANSION』をリリース。弾き語りからバンドサウンドまで自在に行き来し、日常のリアルと内面の葛藤を生々しい言葉で描き出す。現在はBYMP BAND所属。代表作は「今夜も一杯付き合って」。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"tayutaedo", name:"tayutaedo", time:"", image:"images/tayutaedo-1.jpg", role:"COPY BAND", description:"昨年末に惜しまれつつ閉店した新舞子Limaをホームに長年活動してきたメンバーで新たに結成した、お酒大好き中年モラトリアムコピーバンド。J-POPやJ-ROCKの名曲を楽しく演奏する。みなさん乾杯しましょう🍻", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"tayutaedo", name:"tayutaedo", time:"", image:"images/tayutaedo-1.jpg", role:"BAND", description:"昨年末に惜しまれつつ閉店した新舞子Limaをホームに長年活動してきたメンバーで新たに結成した、お酒大好き中年モラトリアムコピーバンド。J-POPやJ-ROCKの名曲を楽しく演奏する。みなさん乾杯しましょう🍻", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"dela-aa", name:"DeLa AA（でらええに）", time:"", image:"images/delaaa-1.jpg", role:"INSTRUMENTAL BAND", description:"2026年結成。名古屋のベテラン2人と三重の若者2人がコラボしたインストバンド。水谷吉典（Gt）・石垣篤友（E.Bass）・山中颯真（Gt）・濵口あい（Dr）による熱いインタープレイに乞うご期待。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"lilsae", name:"Lilsae", time:"", image:"images/lilsae-1.jpg", role:"SOLO ARTIST", description:"愛知を拠点に活動するソロアーティスト。ロックを軸に、パンクロック、シューゲイザーなど多様なサウンドを独自に融合させた音楽を創り出す。SNSを中心に活動を展開し、TikTokでは10万人を超えるフォロワーを持つオンライン発アーティストとして注目を集めている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"lilsae", name:"Lilsae", time:"", image:"images/lilsae-1.jpg", role:"SINGER SONGWRITER", description:"愛知を拠点に活動するソロアーティスト。ロックを軸に、パンクロック、シューゲイザーなど多様なサウンドを独自に融合させた音楽を創り出す。SNSを中心に活動を展開し、TikTokでは10万人を超えるフォロワーを持つオンライン発アーティストとして注目を集めている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"candyblue-diamond", name:"CANDY☆BLUE DIAMOND", time:"", image:"images/candyblue-diamond-1.jpg", role:"OLDIES & ROCK'N'ROLL BAND", description:"懐かしいオールディーズのナンバーや昭和歌謡のロカビリーなアレンジで踊りだしたくなるハッピーなライブをお届け。ロカビリーユニット「CANDY☆BLUE」のAKIRA（Gt/Vo）とCatherine（MC/Vo）を中心に、ドラム・ベース・ギター・キーボードが加わった大人のロックンロールバンド。海や夏を意識したナンバーをロカビリー／オールディーズのロックンロールで届ける。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"chiritotaba", name:"塵と束（チリとタバ）", time:"", image:"images/chiritotaba-1.jpg", role:"EXPERIMENTAL UNIT", description:"PROJECT Shinmaikoで結成した、男と女の実験的音楽ユニット。ボーカル曲があったり、同じフレーズを10分くらい演奏したりとカオスすぎて、最終的にちゃんと終われるのか本人たちもわかっていない。今回が初ライブ。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
   {id:"novaly", name:"NOVALY", time:"", image:"images/novaly-1.jpg", role:"EVENT TEAM", description:"イベントチームとして活動。まだまだ未熟だが、会場の皆を楽しませるパフォーマンスを披露する。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
@@ -816,20 +787,20 @@ const artists = [
 ];
 
 const vendors = [
-  {"id": "vendor-01", "name": "キッチン炭火屋", "categories": ["FOOD", "SWEETS", "ALCOHOL", "DRINK"], "image": "images/kitchen-sumibiya-1.jpg", "gallery": ["images/kitchen-sumibiya-2.jpg"], "logo": "", "description": "元宮崎県民だからこそできる、本場・宮崎の味をご提供。宮崎の養鶏場から直送された新鮮な地鶏を豪快に焼き上げ、燻すことで本場の地鶏焼きを再現する。この地域では珍しい骨付きフランクもおすすめ。", "menus": [{"category": "FOOD", "name": "鶏の炭火焼（中）", "price": "800円"}, {"category": "FOOD", "name": "鶏の炭火焼（大）", "price": "1,200円"}, {"category": "FOOD", "name": "骨付きフランク", "price": "600円"}, {"category": "SWEETS", "name": "袋入りかき氷（2個）", "price": "500円"}, {"category": "ALCOHOL", "name": "缶スーパードライ", "price": "500円"}, {"category": "ALCOHOL", "name": "缶発泡酒", "price": "450円"}, {"category": "ALCOHOL", "name": "缶ハイボール", "price": "450円"}, {"category": "ALCOHOL", "name": "缶サワー", "price": "400円"}, {"category": "DRINK", "name": "ジュース", "price": "300円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-02", "name": "あまおと珈琲", "categories": ["DRINK", "ALCOHOL"], "image": "images/amaotocoffee-1.jpg", "gallery": ["images/amaotocoffee-2.jpg", "images/amaotocoffee-3.jpg"], "logo": "", "description": "知多市の自家焙煎珈琲豆店。手廻し焙煎機で少量ずつ丁寧に焙煎した新鮮な珈琲豆を使用し、焼きたての美味しさをお届け。当日はハンドドリップ珈琲やカフェオレ、珈琲ソーダ、アフォガートのほか、知多ハイボールや珈琲豆の販売も。", "menus": [{"category": "DRINK", "name": "ハンドドリップ珈琲", "price": "600円"}, {"category": "DRINK", "name": "カフェオレ", "price": "650円"}, {"category": "DRINK", "name": "カフェモカ", "price": "700円"}, {"category": "DRINK", "name": "アフォガート", "price": "650円"}, {"category": "ALCOHOL", "name": "知多ハイボール", "price": "1,000円"}, {"category": "ALCOHOL", "name": "知多珈琲ハイボール", "price": "1,100円"}], "notes": "フロート・珈琲ソーダ・珈琲豆・ドリップバッグ・知多木綿珈琲フィルターなども販売予定です。", "website": "", "socials": {"instagram": "https://www.instagram.com/amaoto_coffee/", "x": "", "facebook": ""}},
-  {"id": "vendor-03", "name": "ヒゲタコ", "categories": ["FOOD", "SWEETS", "DRINK", "ALCOHOL"], "image": "images/higetako-1.jpg", "imagePosition": "center 35%", "gallery": ["images/higetako-2.jpg"], "logo": "", "description": "独自配合のオリジナル生地で焼き上げる「究極のふわとろたこ焼き」。外はふわっと、中はとろ〜り。一口食べれば濃厚な出汁の旨みが広がる。素材にも焼き加減にもこだわった、冷めても美味しい自慢のたこ焼き。", "menus": [{"category": "FOOD", "name": "たこ焼き各種", "price": "700〜850円"}, {"category": "SWEETS", "name": "かき氷", "price": "500円"}, {"category": "SWEETS", "name": "いちごけずり", "price": "600円"}, {"category": "DRINK", "name": "ラムネ", "price": "300円"}, {"category": "ALCOHOL", "name": "ハイボール", "price": "500円"}, {"category": "ALCOHOL", "name": "ビール", "price": "500円"}, {"category": "ALCOHOL", "name": "ノンアルコール", "price": "400円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-04", "name": "Kokone", "categories": ["EXPERIENCE"], "image": "images/kokone-1.jpg", "imagePosition": "center top", "gallery": [], "logo": "", "description": "CBD配合のドライヘッドスパで、頭も心もスッキリ軽やかに。海外でも健康維持のために親しまれている植物由来成分「CBD」を取り入れた珍しいヘッドスパを体験できる。イベントの合間に、自分へのちょっとしたご褒美をどうぞ。", "menus": [{"category": "EXPERIENCE", "name": "ドライヘッドスパ 10分", "price": "1,000円"}], "notes": "当日はCBD商品の販売も予定しています。", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-05", "name": "Sunny's（サニーズ知多店）", "categories": ["SWEETS", "DRINK"], "image": "images/sunnys-1.jpg", "gallery": ["images/sunnys-2.jpg", "images/sunnys-3.jpg"], "logo": "", "description": "クレープのキッチンカー。甘い香りと、ふんわりもちもちの生地が自慢で、注文を受けてから一枚ずつ丁寧に焼き上げる。アイスをのせたクレープもあり。", "menus": [{"category": "SWEETS", "name": "クレープ各種", "price": "550〜700円"}, {"category": "SWEETS", "name": "アイスティー", "price": "500円"}, {"category": "DRINK", "name": "氷カフェコーヒー", "price": "600円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-06", "name": "BeanS BOY", "categories": ["FOOD", "DRINK"], "image": "images/beansboy-1.jpg", "gallery": ["images/beansboy-2.jpg", "images/beansboy-3.jpg"], "logo": "", "description": "普段は福祉施設で働きながら、自家焙煎コーヒーを手掛ける。コーヒーが苦手な方でも飲みやすい、すっきりとした味わいを目指して一杯一杯丁寧に焙煎。一期一会のコーヒーとの出会いを楽しめる。", "menus": [{"category": "FOOD", "name": "コロンビア クレオパトラ", "price": "500円"}, {"category": "FOOD", "name": "ブラジル サントスNo.2", "price": "500円"}, {"category": "FOOD", "name": "メキシコ アナエロビック", "price": "600円"}, {"category": "FOOD", "name": "パプアニューギニア マッドマン", "price": "600円"}, {"category": "DRINK", "name": "ブラジル デカフェ", "price": "600円"}, {"category": "DRINK", "name": "ジュース", "price": "200円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-07", "name": "Eatluck", "categories": ["SWEETS", "ALCOHOL", "DRINK"], "image": "images/eatluck-1.jpg", "gallery": ["images/eatluck-2.jpg"], "logo": "", "description": "夏にぴったりの「キンキンみかん」と、さまざまな味が楽しめるロングチュロスをご用意。暑い夏にぴったりな冷たいスイーツと、食べ歩きにもぴったりのチュロス。", "menus": [{"category": "SWEETS", "name": "チュロス", "price": "600円"}, {"category": "SWEETS", "name": "かき氷", "price": "500円"}, {"category": "SWEETS", "name": "キンキンみかん", "price": "500円"}, {"category": "ALCOHOL", "name": "アルコール", "price": "500円"}, {"category": "DRINK", "name": "ドリンク各種", "price": "200〜500円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-08", "name": "だいてつ", "categories": ["FOOD", "SWEETS", "DRINK", "ALCOHOL"], "image": "images/daitetsu-1.jpg", "gallery": ["images/daitetsu-2.jpg", "images/daitetsu-3.jpg"], "logo": "", "description": "「地産地消」をテーマに、知多半島の美味しさをお届け。卵や野菜、えびせんべいなど知多半島産の食材を使用したメニューが並ぶ。", "menus": [{"category": "FOOD", "name": "焼きそば", "price": "600円"}, {"category": "FOOD", "name": "オムそば", "price": "850円"}, {"category": "FOOD", "name": "フランクフルト", "price": "300円"}, {"category": "FOOD", "name": "からあげ", "price": "500円"}, {"category": "FOOD", "name": "たません", "price": "400／700円"}, {"category": "SWEETS", "name": "かき氷", "price": "400／600円"}, {"category": "SWEETS", "name": "冷凍みかん・ピーチ", "price": "500／800円"}, {"category": "DRINK", "name": "レモネードソーダ", "price": "400円"}, {"category": "DRINK", "name": "カラフルソーダ", "price": "400円"}, {"category": "DRINK", "name": "コーラ", "price": "100円"}, {"category": "ALCOHOL", "name": "ハイボール", "price": "500円"}, {"category": "ALCOHOL", "name": "コークハイ", "price": "500円"}, {"category": "ALCOHOL", "name": "日本酒ハイボール", "price": "500円"}, {"category": "ALCOHOL", "name": "レモンサワー", "price": "500円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-09", "name": "Le manger（ル・マンジェ）", "categories": ["GOODS", "FOOD", "SWEETS", "DRINK"], "image": "images/lemanger-1.png", "gallery": ["images/lemanger-2.png", "images/lemanger-3.png"], "logo": "", "description": "ファーマーズトラック。農園で採れた新鮮な野菜やはちみつをたっぷり使ったスープやホットドッグ、アイスをご用意。", "menus": [{"category": "GOODS", "name": "野菜スープセット", "price": "600円"}, {"category": "FOOD", "name": "ホットドッグ", "price": "500円"}, {"category": "SWEETS", "name": "はちみつアイス（ミルク）", "price": "500円"}, {"category": "SWEETS", "name": "はちみつアイス（ハスカップ）", "price": "550円"}, {"category": "DRINK", "name": "はちみつクリームソーダ", "price": "600円"}, {"category": "SWEETS", "name": "季節のフルーツアイス", "price": "700円"}, {"category": "GOODS", "name": "野菜", "price": "100円〜"}], "notes": "当日は採れたて野菜の販売もあります。", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-10", "name": "揚げ物専門店A（エース）", "categories": ["FOOD", "DRINK", "ALCOHOL", "SWEETS"], "image": "images/ace-fry-1.jpg", "gallery": ["images/ace-fry-2.jpg", "images/ace-fry-3.jpg"], "logo": "", "description": "サクッと揚げたて、一口食べれば止まらない。看板メニューの「悪魔的ニンニクからあげ」はパンチの効いたニンニクの旨みとジュワッとあふれる肉汁がやみつき。外はカリッと中はぷりぷりの「タコ唐揚げ」もお酒のお供に。", "menus": [{"category": "FOOD", "name": "からあげ", "price": "700円"}, {"category": "FOOD", "name": "タコ唐揚げ S／W", "price": "600／1,000円"}, {"category": "FOOD", "name": "フライドポテト", "price": "500円"}, {"category": "FOOD", "name": "鶏皮揚げ餃子", "price": "500円"}, {"category": "FOOD", "name": "コロッケ類", "price": "400〜450円"}, {"category": "FOOD", "name": "エビのフリッター", "price": "500円"}, {"category": "FOOD", "name": "串カツ（味噌・ソース）", "price": "200〜500円"}, {"category": "DRINK", "name": "ソフトドリンク", "price": "200円"}, {"category": "ALCOHOL", "name": "アルコール缶", "price": "400〜500円"}, {"category": "SWEETS", "name": "かき氷", "price": "400円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-11", "name": "GIRASSOL", "categories": ["EXPERIENCE"], "image": "images/girassol-1.jpg", "imagePosition": "center top", "gallery": [], "logo": "", "description": "耳ツボジュエリー。おしゃれを楽しみながら耳のツボをやさしく刺激。耳には全身につながる様々なツボがあるとされ、お悩みに合わせてツボを選び施術。肩・首まわりやむくみ、目の疲れが気になる方にもおすすめ。見た目もかわいくアクセサリー感覚で楽しめる。", "menus": [{"category": "EXPERIENCE", "name": "子ども 両耳6個", "price": "500円"}, {"category": "EXPERIENCE", "name": "大人 両耳8個", "price": "1,000円"}, {"category": "EXPERIENCE", "name": "大人 両耳12個", "price": "1,200円"}], "notes": "ボディペイントを実施する可能性があります。", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-12", "name": "キングチキン", "categories": ["SWEETS", "FOOD", "ALCOHOL"], "image": "images/kingchicken-1.jpg", "gallery": ["images/kingchicken-2.jpg", "images/kingchicken-3.jpg"], "logo": "", "description": "24時間じっくり特製だれに漬け込んだ「熟成醤油唐揚げ」。しっかりと味を染み込ませた自慢の唐揚げを会場で。", "menus": [{"category": "SWEETS", "name": "かき氷", "price": "400円"}, {"category": "SWEETS", "name": "チョコバナナ", "price": "400円"}, {"category": "SWEETS", "name": "いちご飴", "price": "400円"}, {"category": "SWEETS", "name": "冷凍みかん", "price": "400円"}, {"category": "FOOD", "name": "唐揚げ", "price": "500円"}, {"category": "FOOD", "name": "ポテト", "price": "400円"}, {"category": "ALCOHOL", "name": "レモンサワー", "price": "400円"}, {"category": "ALCOHOL", "name": "ハイボール", "price": "500円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-13", "name": "hono/hono/cafe'", "categories": ["FOOD", "SWEETS", "DRINK"], "image": "images/honohonocafe-1.jpg", "gallery": [], "logo": "", "description": "田原ポーク100％のオリジナルロングウインナーを使用したホットドッグ。こだわりのバゲットは外はパリッ、中はふんわり。ジューシーなウインナーと合わせた食べ応えたっぷりのボリューミーな一品。", "menus": [{"category": "FOOD", "name": "ホットドッグ各種", "price": "750〜1,200円"}, {"category": "FOOD", "name": "フランク", "price": "700円"}, {"category": "SWEETS", "name": "かき氷", "price": "500〜600円"}, {"category": "DRINK", "name": "ドリンク", "price": "400〜600円"}, {"category": "SWEETS", "name": "冷凍フルーツ", "price": "500円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
-  {"id": "vendor-14", "name": "AK KITCHEN", "categories": ["FOOD", "SWEETS", "ALCOHOL", "DRINK"], "image": "images/akkitchen-1.jpg", "gallery": ["images/akkitchen-2.jpg"], "logo": "", "description": "注文を受けてから焼き上げる焼きたてホットサンドが主役。暑い夏にうれしいかき氷や冷たいドリンクもご用意。", "menus": [{"category": "FOOD", "name": "ホットサンド各種", "price": "700円"}, {"category": "FOOD", "name": "ホットサンド各種ハーフ", "price": "450円"}, {"category": "FOOD", "name": "揚げフランク", "price": "500円"}, {"category": "FOOD", "name": "ポテト", "price": "400円"}, {"category": "SWEETS", "name": "チュロス", "price": "400円"}, {"category": "SWEETS", "name": "かき氷各種", "price": "400円"}, {"category": "ALCOHOL", "name": "ビール", "price": "500円"}, {"category": "ALCOHOL", "name": "ハイボール", "price": "450円"}, {"category": "ALCOHOL", "name": "レモンサワー", "price": "400円"}, {"category": "DRINK", "name": "ドリンク各種", "price": "350〜500円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}}
+  {"id": "vendor-01", "name": "キッチン炭火屋", "tagline": "本場・宮崎の地鶏焼き", "categories": ["FOOD", "SWEETS", "ALCOHOL", "DRINK"], "image": "images/kitchen-sumibiya-1.jpg", "gallery": ["images/kitchen-sumibiya-2.jpg"], "logo": "", "description": "元宮崎県民だからこそできる、本場・宮崎の味をご提供。宮崎の養鶏場から直送された新鮮な地鶏を豪快に焼き上げ、燻すことで本場の地鶏焼きを再現する。この地域では珍しい骨付きフランクもおすすめ。", "menus": [{"category": "FOOD", "name": "鶏の炭火焼（中）", "price": "800円"}, {"category": "FOOD", "name": "鶏の炭火焼（大）", "price": "1,200円"}, {"category": "FOOD", "name": "骨付きフランク", "price": "600円"}, {"category": "SWEETS", "name": "袋入りかき氷（2個）", "price": "500円"}, {"category": "ALCOHOL", "name": "缶スーパードライ", "price": "500円"}, {"category": "ALCOHOL", "name": "缶発泡酒", "price": "450円"}, {"category": "ALCOHOL", "name": "缶ハイボール", "price": "450円"}, {"category": "ALCOHOL", "name": "缶サワー", "price": "400円"}, {"category": "DRINK", "name": "ジュース", "price": "300円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-02", "name": "あまおと珈琲", "tagline": "知多の自家焙煎珈琲豆店", "categories": ["DRINK", "ALCOHOL"], "image": "images/amaotocoffee-1.jpg", "gallery": ["images/amaotocoffee-2.jpg", "images/amaotocoffee-3.jpg"], "logo": "", "description": "知多市の自家焙煎珈琲豆店。手廻し焙煎機で少量ずつ丁寧に焙煎した新鮮な珈琲豆を使用し、焼きたての美味しさをお届け。当日はハンドドリップ珈琲やカフェオレ、珈琲ソーダ、アフォガートのほか、知多ハイボールや珈琲豆の販売も。", "menus": [{"category": "DRINK", "name": "ハンドドリップ珈琲", "price": "600円"}, {"category": "DRINK", "name": "カフェオレ", "price": "650円"}, {"category": "DRINK", "name": "カフェモカ", "price": "700円"}, {"category": "DRINK", "name": "アフォガート", "price": "650円"}, {"category": "ALCOHOL", "name": "知多ハイボール", "price": "1,000円"}, {"category": "ALCOHOL", "name": "知多珈琲ハイボール", "price": "1,100円"}], "notes": "フロート・珈琲ソーダ・珈琲豆・ドリップバッグ・知多木綿珈琲フィルターなども販売予定です。", "website": "", "socials": {"instagram": "https://www.instagram.com/amaoto_coffee/", "x": "", "facebook": ""}},
+  {"id": "vendor-03", "name": "ヒゲタコ", "tagline": "究極のふわとろたこ焼き", "categories": ["FOOD", "SWEETS", "DRINK", "ALCOHOL"], "image": "images/higetako-1.jpg", "imagePosition": "center 35%", "gallery": ["images/higetako-2.jpg"], "logo": "", "description": "独自配合のオリジナル生地で焼き上げる「究極のふわとろたこ焼き」。外はふわっと、中はとろ〜り。一口食べれば濃厚な出汁の旨みが広がる。素材にも焼き加減にもこだわった、冷めても美味しい自慢のたこ焼き。", "menus": [{"category": "FOOD", "name": "たこ焼き各種", "price": "700〜850円"}, {"category": "SWEETS", "name": "かき氷", "price": "500円"}, {"category": "SWEETS", "name": "いちごけずり", "price": "600円"}, {"category": "DRINK", "name": "ラムネ", "price": "300円"}, {"category": "ALCOHOL", "name": "ハイボール", "price": "500円"}, {"category": "ALCOHOL", "name": "ビール", "price": "500円"}, {"category": "ALCOHOL", "name": "ノンアルコール", "price": "400円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-04", "name": "Kokone", "tagline": "CBD配合のドライヘッドスパ", "categories": ["EXPERIENCE"], "image": "images/kokone-1.jpg", "imagePosition": "center top", "gallery": [], "logo": "", "description": "CBD配合のドライヘッドスパで、頭も心もスッキリ軽やかに。海外でも健康維持のために親しまれている植物由来成分「CBD」を取り入れた珍しいヘッドスパを体験できる。イベントの合間に、自分へのちょっとしたご褒美をどうぞ。", "menus": [{"category": "EXPERIENCE", "name": "ドライヘッドスパ 10分", "price": "1,000円"}], "notes": "当日はCBD商品の販売も予定しています。", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-05", "name": "Sunny's（サニーズ知多店）", "tagline": "丁寧に焼き上げるクレープ", "categories": ["SWEETS", "DRINK"], "image": "images/sunnys-1.jpg", "gallery": ["images/sunnys-2.jpg", "images/sunnys-3.jpg"], "logo": "", "description": "クレープのキッチンカー。甘い香りと、ふんわりもちもちの生地が自慢で、注文を受けてから一枚ずつ丁寧に焼き上げる。アイスをのせたクレープもあり。", "menus": [{"category": "SWEETS", "name": "クレープ各種", "price": "550〜700円"}, {"category": "SWEETS", "name": "アイスティー", "price": "500円"}, {"category": "DRINK", "name": "氷カフェコーヒー", "price": "600円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-06", "name": "BeanS BOY", "tagline": "一期一会のコーヒーとの出会いを", "categories": ["FOOD", "DRINK"], "image": "images/beansboy-1.jpg", "gallery": ["images/beansboy-2.jpg", "images/beansboy-3.jpg"], "logo": "", "description": "普段は福祉施設で働きながら、自家焙煎コーヒーを手掛ける。コーヒーが苦手な方でも飲みやすい、すっきりとした味わいを目指して一杯一杯丁寧に焙煎。一期一会のコーヒーとの出会いを楽しめる。", "menus": [{"category": "FOOD", "name": "コロンビア クレオパトラ", "price": "500円"}, {"category": "FOOD", "name": "ブラジル サントスNo.2", "price": "500円"}, {"category": "FOOD", "name": "メキシコ アナエロビック", "price": "600円"}, {"category": "FOOD", "name": "パプアニューギニア マッドマン", "price": "600円"}, {"category": "DRINK", "name": "ブラジル デカフェ", "price": "600円"}, {"category": "DRINK", "name": "ジュース", "price": "200円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-07", "name": "Eatluck", "tagline": "夏にぴったりのスイーツとチュロス", "categories": ["SWEETS", "ALCOHOL", "DRINK"], "image": "images/eatluck-1.jpg", "gallery": ["images/eatluck-2.jpg"], "logo": "", "description": "夏にぴったりの「キンキンみかん」と、さまざまな味が楽しめるロングチュロスをご用意。暑い夏にぴったりな冷たいスイーツと、食べ歩きにもぴったりのチュロス。", "menus": [{"category": "SWEETS", "name": "チュロス", "price": "600円"}, {"category": "SWEETS", "name": "かき氷", "price": "500円"}, {"category": "SWEETS", "name": "キンキンみかん", "price": "500円"}, {"category": "ALCOHOL", "name": "アルコール", "price": "500円"}, {"category": "DRINK", "name": "ドリンク各種", "price": "200〜500円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-08", "name": "だいてつ", "tagline": "知多半島の美味しさをお届け", "categories": ["FOOD", "SWEETS", "DRINK", "ALCOHOL"], "image": "images/daitetsu-1.jpg", "gallery": ["images/daitetsu-2.jpg", "images/daitetsu-3.jpg"], "logo": "", "description": "「地産地消」をテーマに、知多半島の美味しさをお届け。卵や野菜、えびせんべいなど知多半島産の食材を使用したメニューが並ぶ。", "menus": [{"category": "FOOD", "name": "焼きそば", "price": "600円"}, {"category": "FOOD", "name": "オムそば", "price": "850円"}, {"category": "FOOD", "name": "フランクフルト", "price": "300円"}, {"category": "FOOD", "name": "からあげ", "price": "500円"}, {"category": "FOOD", "name": "たません", "price": "400／700円"}, {"category": "SWEETS", "name": "かき氷", "price": "400／600円"}, {"category": "SWEETS", "name": "冷凍みかん・ピーチ", "price": "500／800円"}, {"category": "DRINK", "name": "レモネードソーダ", "price": "400円"}, {"category": "DRINK", "name": "カラフルソーダ", "price": "400円"}, {"category": "DRINK", "name": "コーラ", "price": "100円"}, {"category": "ALCOHOL", "name": "ハイボール", "price": "500円"}, {"category": "ALCOHOL", "name": "コークハイ", "price": "500円"}, {"category": "ALCOHOL", "name": "日本酒ハイボール", "price": "500円"}, {"category": "ALCOHOL", "name": "レモンサワー", "price": "500円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-09", "name": "Le manger（ル・マンジェ）", "tagline": "新鮮な野菜やはちみつをたっぷり使ったメニュー", "categories": ["GOODS", "FOOD", "SWEETS", "DRINK"], "image": "images/lemanger-1.png", "gallery": ["images/lemanger-2.png", "images/lemanger-3.png"], "logo": "", "description": "ファーマーズトラック。農園で採れた新鮮な野菜やはちみつをたっぷり使ったスープやホットドッグ、アイスをご用意。", "menus": [{"category": "GOODS", "name": "野菜スープセット", "price": "600円"}, {"category": "FOOD", "name": "ホットドッグ", "price": "500円"}, {"category": "SWEETS", "name": "はちみつアイス（ミルク）", "price": "500円"}, {"category": "SWEETS", "name": "はちみつアイス（ハスカップ）", "price": "550円"}, {"category": "DRINK", "name": "はちみつクリームソーダ", "price": "600円"}, {"category": "SWEETS", "name": "季節のフルーツアイス", "price": "700円"}, {"category": "GOODS", "name": "野菜", "price": "100円〜"}], "notes": "当日は採れたて野菜の販売もあります。", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-10", "name": "揚げ物専門店A（エース）", "tagline": "悪魔的ニンニクからあげ", "categories": ["FOOD", "DRINK", "ALCOHOL", "SWEETS"], "image": "images/ace-fry-1.jpg", "gallery": ["images/ace-fry-2.jpg", "images/ace-fry-3.jpg"], "logo": "", "description": "サクッと揚げたて、一口食べれば止まらない。看板メニューの「悪魔的ニンニクからあげ」はパンチの効いたニンニクの旨みとジュワッとあふれる肉汁がやみつき。外はカリッと中はぷりぷりの「タコ唐揚げ」もお酒のお供に。", "menus": [{"category": "FOOD", "name": "からあげ", "price": "700円"}, {"category": "FOOD", "name": "タコ唐揚げ S／W", "price": "600／1,000円"}, {"category": "FOOD", "name": "フライドポテト", "price": "500円"}, {"category": "FOOD", "name": "鶏皮揚げ餃子", "price": "500円"}, {"category": "FOOD", "name": "コロッケ類", "price": "400〜450円"}, {"category": "FOOD", "name": "エビのフリッター", "price": "500円"}, {"category": "FOOD", "name": "串カツ（味噌・ソース）", "price": "200〜500円"}, {"category": "DRINK", "name": "ソフトドリンク", "price": "200円"}, {"category": "ALCOHOL", "name": "アルコール缶", "price": "400〜500円"}, {"category": "SWEETS", "name": "かき氷", "price": "400円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-11", "name": "GIRASSOL", "tagline": "肩・首回りや目の疲れが気になる方へ", "categories": ["EXPERIENCE"], "image": "images/girassol-1.jpg", "imagePosition": "center top", "gallery": [], "logo": "", "description": "耳ツボジュエリー。おしゃれを楽しみながら耳のツボをやさしく刺激。耳には全身につながる様々なツボがあるとされ、お悩みに合わせてツボを選び施術。肩・首まわりやむくみ、目の疲れが気になる方にもおすすめ。見た目もかわいくアクセサリー感覚で楽しめる。", "menus": [{"category": "EXPERIENCE", "name": "子ども 両耳6個", "price": "500円"}, {"category": "EXPERIENCE", "name": "大人 両耳8個", "price": "1,000円"}, {"category": "EXPERIENCE", "name": "大人 両耳12個", "price": "1,200円"}], "notes": "ボディペイントを実施する可能性があります。", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-12", "name": "キングチキン", "tagline": "特製だれの「熟成醤油唐揚げ」", "categories": ["SWEETS", "FOOD", "ALCOHOL"], "image": "images/kingchicken-1.jpg", "gallery": ["images/kingchicken-2.jpg", "images/kingchicken-3.jpg"], "logo": "", "description": "24時間じっくり特製だれに漬け込んだ「熟成醤油唐揚げ」。しっかりと味を染み込ませた自慢の唐揚げを会場で。", "menus": [{"category": "SWEETS", "name": "かき氷", "price": "400円"}, {"category": "SWEETS", "name": "チョコバナナ", "price": "400円"}, {"category": "SWEETS", "name": "いちご飴", "price": "400円"}, {"category": "SWEETS", "name": "冷凍みかん", "price": "400円"}, {"category": "FOOD", "name": "唐揚げ", "price": "500円"}, {"category": "FOOD", "name": "ポテト", "price": "400円"}, {"category": "ALCOHOL", "name": "レモンサワー", "price": "400円"}, {"category": "ALCOHOL", "name": "ハイボール", "price": "500円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-13", "name": "hono/hono/cafe'", "tagline": "田原ポーク100％ホットドッグ", "categories": ["FOOD", "SWEETS", "DRINK"], "image": "images/honohonocafe-1.jpg", "gallery": [], "logo": "", "description": "田原ポーク100％のオリジナルロングウインナーを使用したホットドッグ。こだわりのバゲットは外はパリッ、中はふんわり。ジューシーなウインナーと合わせた食べ応えたっぷりのボリューミーな一品。", "menus": [{"category": "FOOD", "name": "ホットドッグ各種", "price": "750〜1,200円"}, {"category": "FOOD", "name": "フランク", "price": "700円"}, {"category": "SWEETS", "name": "かき氷", "price": "500〜600円"}, {"category": "DRINK", "name": "ドリンク", "price": "400〜600円"}, {"category": "SWEETS", "name": "冷凍フルーツ", "price": "500円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}},
+  {"id": "vendor-14", "name": "AK KITCHEN", "tagline": "焼きたてホットサンドや冷たいドリンク", "categories": ["FOOD", "SWEETS", "ALCOHOL", "DRINK"], "image": "images/akkitchen-1.jpg", "gallery": ["images/akkitchen-2.jpg"], "logo": "", "description": "注文を受けてから焼き上げる焼きたてホットサンドが主役。暑い夏にうれしいかき氷や冷たいドリンクもご用意。", "menus": [{"category": "FOOD", "name": "ホットサンド各種", "price": "700円"}, {"category": "FOOD", "name": "ホットサンド各種ハーフ", "price": "450円"}, {"category": "FOOD", "name": "揚げフランク", "price": "500円"}, {"category": "FOOD", "name": "ポテト", "price": "400円"}, {"category": "SWEETS", "name": "チュロス", "price": "400円"}, {"category": "SWEETS", "name": "かき氷各種", "price": "400円"}, {"category": "ALCOHOL", "name": "ビール", "price": "500円"}, {"category": "ALCOHOL", "name": "ハイボール", "price": "450円"}, {"category": "ALCOHOL", "name": "レモンサワー", "price": "400円"}, {"category": "DRINK", "name": "ドリンク各種", "price": "350〜500円"}], "notes": "", "website": "", "socials": {"instagram": "", "x": "", "facebook": ""}}
 ];
 
 const news = [
@@ -867,12 +838,11 @@ displayArtists.forEach((a, i) => {
   const cover = hasPhoto
     ? `<img class="artist-card__photo" src="${a.image}" alt="${a.name}" loading="lazy">`
     : '';
-  const timeLine = a.time || a.role || '';
+  const timeLine = a.time || '';
   btn.innerHTML = `${cover}
     <span class="artist-card__content${hasPhoto ? '' : ' no-photo'}">
       <span class="artist-card__name">${a.name}</span>
       ${timeLine ? `<span class="artist-card__time">${timeLine}</span>` : ''}
-      <span class="artist-card__view">VIEW PROFILE ›</span>
     </span>`;
   btn.addEventListener('click', () => openArtistModal(i, btn));
   artistGrid.appendChild(btn);
@@ -893,7 +863,7 @@ displayVendors.forEach((v, i) => {
   const cover = hasPhoto
     ? `<img class="vendor-card__photo" src="${v.image}" style="object-position:${v.imagePosition || 'center'}" alt="${v.name}" loading="lazy">`
     : '';
-  const pick = v.menus && v.menus.length ? v.menus[0].name : '';
+  const pick = v.tagline || (v.menus && v.menus.length ? v.menus[0].name : '');
   btn.innerHTML = `${cover}
     <span class="vendor-card__content${hasPhoto ? '' : ' no-photo'}">
       <span class="vendor-card__cats">${catTagsHTML(v.categories)}</span>
