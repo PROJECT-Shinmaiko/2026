@@ -380,10 +380,10 @@
     display:flex; align-items:center; justify-content:center;
   }
   .artist-modal__close:hover{background:var(--coral); border-color:var(--coral);}
-  .artist-modal__photo-col{flex:0 0 auto; position:relative;}
-  @media(min-width:760px){ .artist-modal__photo-col{flex:0 0 42%;} }
-  .artist-modal__photo{width:100%; height:260px; object-fit:cover; object-position:center 15%; display:block;}
-  @media(min-width:760px){ .artist-modal__photo{height:100%; min-height:100%;} }
+  .artist-modal__photo-col{flex:0 0 auto; position:relative; display:flex; align-items:flex-start;}
+  @media(min-width:760px){ .artist-modal__photo-col{flex:0 0 42%; align-items:center; background:rgba(2,35,55,0.25);} }
+  .artist-modal__photo{width:100%; height:auto; max-height:60vh; object-fit:contain; display:block; margin:0 auto;}
+  @media(min-width:760px){ .artist-modal__photo{max-height:86vh;} }
   .artist-modal__info-col{
     flex:1; min-width:0; padding:clamp(24px,4vw,44px);
     display:flex; flex-direction:column;
@@ -422,6 +422,10 @@
   @media(min-width:640px){ .artist-modal__navbtn{display:flex;} }
   .artist-modal__navbtn:hover{background:var(--coral); border-color:var(--coral);}
 
+  .modal-gallery{display:flex; flex-direction:column; gap:10px; margin-bottom:20px;}
+  .modal-gallery:empty{margin-bottom:0;}
+  .modal-gallery img{width:100%; height:auto; display:block; border-radius:4px 14px 4px 14px;}
+
   /* ---------- vendor modal (marche, bright/friendly variant) ---------- */
   .vendor-overlay{
     position:fixed; inset:0; z-index:400;
@@ -452,10 +456,10 @@
     display:flex; align-items:center; justify-content:center;
   }
   .vendor-modal__close:hover{background:var(--coral); border-color:var(--coral); color:var(--white);}
-  .vendor-modal__photo-col{flex:0 0 auto; position:relative;}
-  @media(min-width:760px){ .vendor-modal__photo-col{flex:0 0 42%;} }
-  .vendor-modal__photo{width:100%; height:220px; object-fit:cover; display:block; background:var(--paleaqua);}
-  @media(min-width:760px){ .vendor-modal__photo{height:100%; min-height:100%;} }
+  .vendor-modal__photo-col{flex:0 0 auto; position:relative; display:flex; align-items:flex-start;}
+  @media(min-width:760px){ .vendor-modal__photo-col{flex:0 0 42%; align-items:center; background:rgba(7,58,84,0.06);} }
+  .vendor-modal__photo{width:100%; height:auto; max-height:60vh; object-fit:contain; display:block; margin:0 auto; background:var(--paleaqua);}
+  @media(min-width:760px){ .vendor-modal__photo{max-height:86vh;} }
   .vendor-modal__logo{width:64px; height:64px; object-fit:contain; border-radius:8px; background:var(--white); padding:6px; box-shadow:0 6px 18px rgba(7,58,84,0.18); position:absolute; left:16px; bottom:-24px;}
   .vendor-modal__info-col{
     flex:1; min-width:0; padding:clamp(24px,4vw,44px);
@@ -685,6 +689,7 @@
       <h3 class="artist-modal__name" id="artistModalName"></h3>
       <div class="artist-modal__time" id="artistModalTime"></div>
       <p class="artist-modal__desc" id="artistModalDesc"></p>
+      <div class="modal-gallery" id="artistModalGallery"></div>
       <a class="artist-modal__site" id="artistModalSite" href="" target="_blank" rel="noopener noreferrer">
         公式サイト <span aria-hidden="true">↗</span>
       </a>
@@ -707,6 +712,7 @@
       <h3 class="vendor-modal__name" id="vendorModalName"></h3>
       <p class="vendor-modal__desc" id="vendorModalDesc"></p>
       <div id="vendorModalMenus"></div>
+      <div class="modal-gallery" id="vendorModalGallery"></div>
       <div class="vendor-modal__notes" id="vendorModalNotes" hidden></div>
       <div class="vendor-modal__links">
         <a class="vendor-modal__site" id="vendorModalSite" href="" target="_blank" rel="noopener noreferrer" hidden>
@@ -899,6 +905,7 @@ const artistModalTag = document.getElementById('artistModalTag');
 const artistModalName = document.getElementById('artistModalName');
 const artistModalTime = document.getElementById('artistModalTime');
 const artistModalDesc = document.getElementById('artistModalDesc');
+const artistModalGallery = document.getElementById('artistModalGallery');
 const artistModalSite = document.getElementById('artistModalSite');
 const artistModalSocials = document.getElementById('artistModalSocials');
 const artistPrevBtn = document.getElementById('artistPrevBtn');
@@ -923,6 +930,10 @@ function renderArtistModal(index){
   artistModalTime.style.display = timeText ? '' : 'none';
 
   artistModalDesc.textContent = a.description || '';
+
+  artistModalGallery.innerHTML = (a.gallery && a.gallery.length)
+    ? a.gallery.map(src => `<img src="${src}" alt="${a.name}" loading="lazy">`).join('')
+    : '';
 
   if (a.officialSite){
     artistModalSite.href = a.officialSite;
@@ -1023,6 +1034,7 @@ const vendorModalCats = document.getElementById('vendorModalCats');
 const vendorModalName = document.getElementById('vendorModalName');
 const vendorModalDesc = document.getElementById('vendorModalDesc');
 const vendorModalMenus = document.getElementById('vendorModalMenus');
+const vendorModalGallery = document.getElementById('vendorModalGallery');
 const vendorModalNotes = document.getElementById('vendorModalNotes');
 const vendorModalSite = document.getElementById('vendorModalSite');
 const vendorModalSocials = document.getElementById('vendorModalSocials');
@@ -1076,6 +1088,10 @@ function renderVendorModal(index){
       vendorModalMenus.appendChild(group);
     });
   }
+
+  vendorModalGallery.innerHTML = (v.gallery && v.gallery.length)
+    ? v.gallery.map(src => `<img src="${src}" alt="${v.name}" loading="lazy">`).join('')
+    : '';
 
   if (v.notes){
     vendorModalNotes.textContent = v.notes;
