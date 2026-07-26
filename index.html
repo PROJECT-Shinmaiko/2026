@@ -787,10 +787,8 @@ displayArtists.forEach((a, i) => {
     ? `<img class="artist-card__photo" src="${a.image}" alt="${a.name}" loading="lazy">`
     : '';
   const timeLine = a.time || a.role || '';
-  const badgeNo = artists.indexOf(a) + 1;
   btn.innerHTML = `${cover}
     <span class="artist-card__content${hasPhoto ? '' : ' no-photo'}">
-      <span class="artist-card__tag">ARTIST ${String(badgeNo).padStart(2,'0')}</span>
       <span class="artist-card__name">${a.name}</span>
       ${timeLine ? `<span class="artist-card__time">${timeLine}</span>` : ''}
       <span class="artist-card__view">VIEW PROFILE ›</span>
@@ -815,10 +813,8 @@ displayVendors.forEach((v, i) => {
     ? `<img class="vendor-card__photo" src="${v.image}" alt="${v.name}" loading="lazy">`
     : '';
   const pick = v.menus && v.menus.length ? v.menus[0].name : '';
-  const badgeNo = vendors.indexOf(v) + 1;
   btn.innerHTML = `${cover}
     <span class="vendor-card__content${hasPhoto ? '' : ' no-photo'}">
-      <span class="vendor-card__no">MARCHE ${String(badgeNo).padStart(2,'0')}</span>
       <span class="vendor-card__cats">${catTagsHTML(v.categories)}</span>
       <span class="vendor-card__name">${v.name}</span>
       ${pick ? `<span class="vendor-card__pick">${pick}</span>` : ''}
@@ -918,7 +914,7 @@ function renderArtistModal(index){
   artistModalImage.alt = a.name;
   artistModalImage.style.display = a.image ? '' : 'none';
 
-  artistModalTag.textContent = `ARTIST ${String(index+1).padStart(2,'0')}`;
+  artistModalTag.textContent = 'ARTIST';
   artistModalName.textContent = a.name;
 
   const timeText = a.time || a.role || '';
