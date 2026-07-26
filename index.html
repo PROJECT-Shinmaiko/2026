@@ -178,13 +178,25 @@
       radial-gradient(circle at 85% 75%, rgba(255,200,61,0.28) 0%, rgba(255,200,61,0) 45%),
       linear-gradient(150deg, #B9DCD7 0%, #7FC3C9 55%, #438EBC 100%);
   }
-  /* GUIDELINE: sunset warmth over sea-blue-gray */
+  /* SUNSET乾杯: deep sunset over the sea, with a soft blurred logo backdrop */
   .section--guideline{
+    position:relative; overflow:hidden;
     background:
-      radial-gradient(circle at 80% 15%, rgba(255,114,87,0.4) 0%, rgba(255,114,87,0) 45%),
-      radial-gradient(circle at 15% 80%, rgba(255,200,61,0.28) 0%, rgba(255,200,61,0) 45%),
-      linear-gradient(160deg, #6477A3 0%, #4A6E96 55%, #073A54 100%);
+      radial-gradient(circle at 80% 12%, rgba(255,200,61,0.5) 0%, rgba(255,200,61,0) 45%),
+      radial-gradient(circle at 20% 20%, rgba(255,114,87,0.5) 0%, rgba(255,114,87,0) 48%),
+      radial-gradient(circle at 50% 90%, rgba(100,119,163,0.35) 0%, rgba(100,119,163,0) 55%),
+      linear-gradient(165deg, #E0723F 0%, #B44B5C 42%, #4A3B6B 75%, #073A54 100%);
   }
+  .section--guideline::before{
+    content:'';
+    position:absolute; inset:-15%;
+    background-image:url('images/logo-sun.png');
+    background-repeat:no-repeat; background-position:center; background-size:min(70%,560px);
+    filter:blur(38px);
+    opacity:.32;
+    z-index:0; pointer-events:none;
+  }
+  .section--guideline > *{position:relative; z-index:1;}
   /* ACCESS: deep sea blue toward the shore */
   .section--access{
     background:linear-gradient(165deg, #438EBC 0%, #235876 55%, #073A54 100%);
@@ -200,29 +212,35 @@
   .news .section__title{color:var(--ink); font-family:var(--font-jp-heading); font-weight:800; text-transform:none; letter-spacing:.02em;}
   .news__list{display:flex; flex-direction:column; gap:10px;}
   .news__item{
-    display:flex; align-items:center; gap:18px;
+    display:flex; flex-wrap:wrap; align-items:center; gap:8px 14px;
     background:var(--card-bg-light); border:1px solid var(--card-border-light);
     border-radius:16px;
-    padding:18px 20px;
+    padding:18px 44px 18px 20px;
     box-shadow:var(--card-shadow);
     border-style:solid; text-align:left; cursor:pointer; width:100%;
     font-family:var(--font-body); color:var(--ink);
     transition:background .2s ease, transform .2s ease;
+    position:relative;
   }
   .news__item:hover{background:rgba(7,58,84,0.09); transform:translateY(-2px);}
-  .news__thumb{width:56px; height:56px; object-fit:cover; border-radius:10px; flex:0 0 auto;}
-  .news__date{font-family:var(--font-condensed); font-weight:500; letter-spacing:.04em; font-size:11px; opacity:.6; flex:0 0 78px;}
+  .news__thumb{width:56px; height:56px; object-fit:cover; border-radius:10px; flex:0 0 auto; order:1;}
+  .news__date{font-family:var(--font-condensed); font-weight:500; letter-spacing:.04em; font-size:11px; opacity:.6; flex:0 0 auto; order:2;}
   .news__tag{
-    flex:0 0 auto; font-family:var(--font-condensed); font-weight:600; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
+    flex:0 0 auto; order:3; font-family:var(--font-condensed); font-weight:600; font-size:10px; letter-spacing:.08em; text-transform:uppercase;
     padding:4px 10px; border-radius:999px; color:var(--white); background:var(--sea);
   }
   .news__tag.tag-artist{background:var(--turquoise);}
   .news__tag.tag-marche{background:var(--grass);}
   .news__tag.tag-info{background:var(--bluegray);}
-  .news__body{flex:1; min-width:0;}
+  .news__body{flex:1 1 100%; min-width:0; order:4;}
   .news__title{font-family:var(--font-jp-heading); font-weight:700; letter-spacing:.02em; font-size:15px; margin:0;}
   .news__excerpt{font-size:12.5px; opacity:.7; margin:3px 0 0; line-height:1.9;}
-  .news__arrow{opacity:.45; font-family:var(--font-condensed); flex:0 0 auto;}
+  .news__arrow{opacity:.45; font-family:var(--font-condensed); position:absolute; top:18px; right:20px; order:5;}
+  @media(min-width:640px){
+    .news__item{flex-wrap:nowrap; padding:18px 20px;}
+    .news__body{flex:1 1 auto;}
+    .news__arrow{position:static;}
+  }
 
   /* ---------- grid (artist / marche tiles) — frosted glass over vivid gradients ---------- */
   .grid{
@@ -333,12 +351,43 @@
   .guide-item h3{font-family:var(--font-jp-heading); font-weight:700; letter-spacing:.02em; font-size:18px; margin:0 0 8px;}
   .guide-item p{font-family:var(--font-jp-body); font-size:14px; line-height:1.9; margin:0; opacity:.9;}
 
+  .sunset-intro{margin-bottom:28px;}
+  .sunset-intro__title{font-family:var(--font-jp-heading); font-weight:800; letter-spacing:.02em; font-size:clamp(20px,3vw,26px); margin:0 0 14px;}
+  .sunset-intro p{font-family:var(--font-jp-body); font-size:15px; line-height:2; margin:0;}
+
+  .sunset-card{
+    background:linear-gradient(135deg, rgba(255,200,61,0.24), rgba(255,114,87,0.2));
+    border:1px solid rgba(255,255,255,0.35);
+    border-radius:4px 24px 4px 24px;
+    padding:22px 26px; margin-bottom:24px;
+    backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  }
+  .sunset-card__label{
+    display:inline-block; font-family:var(--font-display); font-weight:400; letter-spacing:.03em; text-transform:uppercase;
+    font-size:clamp(22px,3.4vw,32px); color:var(--gold); line-height:1;
+  }
+  .sunset-card__time{font-family:var(--font-condensed); font-weight:600; letter-spacing:.03em; font-size:16px; margin-top:10px;}
+  .sunset-card__place{font-family:var(--font-jp-body); font-size:13.5px; opacity:.85; margin-top:4px;}
+
+  .sunset-notice{
+    background:rgba(2,35,55,0.35);
+    border-left:3px solid var(--coral);
+    border-radius:2px 12px 12px 2px;
+    padding:14px 18px; margin-bottom:12px;
+  }
+  .sunset-notice p{font-family:var(--font-jp-body); font-size:12.5px; line-height:1.9; margin:0 0 6px; opacity:.9;}
+  .sunset-notice p:last-child{margin-bottom:0;}
+
   /* ---------- access ---------- */
   .access-wrap{display:grid; gap:34px; grid-template-columns:1fr;}
   @media(min-width:860px){.access-wrap{grid-template-columns:1fr 1.2fr;}}
-  .access-info dl{display:grid; grid-template-columns:auto 1fr; gap:10px 20px; font-size:14px; line-height:1.8;}
-  .access-info dt{font-family:var(--font-jp-body); font-weight:700; font-size:12px; letter-spacing:.04em; color:var(--gold); padding-top:2px;}
-  .access-info dd{margin:0;}
+  .access-block{margin-bottom:26px;}
+  .access-block__title{
+    font-family:var(--font-jp-heading); font-weight:800; letter-spacing:.02em; font-size:18px;
+    color:var(--gold); margin:0 0 8px; padding-bottom:8px; border-bottom:2px solid rgba(255,255,255,0.25);
+  }
+  .access-block__text{font-size:14px; line-height:1.9; margin:0;}
+  .access-venue{font-size:13px; line-height:1.9; opacity:.85; margin:0; padding-top:14px; border-top:1px dashed rgba(255,255,255,0.25);}
   .access-map{border-radius:16px; overflow:hidden; border:1px solid var(--card-border); box-shadow:var(--card-shadow); min-height:320px;}
   .access-map iframe{width:100%; height:100%; min-height:320px; border:0; display:block;}
 
@@ -540,7 +589,7 @@
     <button class="tab" data-tab="top" role="tab">TOP</button>
     <button class="tab" data-tab="marche" role="tab">MARCHE</button>
     <button class="tab" data-tab="artist" role="tab">ARTIST</button>
-    <button class="tab" data-tab="guideline" role="tab">GUIDELINE</button>
+    <button class="tab" data-tab="guideline" role="tab">SUNSET乾杯</button>
     <button class="tab" data-tab="access" role="tab">ACCESS</button>
   </div>
 </nav>
@@ -580,7 +629,7 @@
     <div class="section__head">
       <span class="section__eyebrow">Food &amp; Craft / 全14店舗</span>
       <h2 class="section__title">MARCHE</h2>
-      <p class="section__sub">タップしてメニュー・価格・カテゴリーを確認。キッチンカーとテントが渚に並ぶ、うみべの縁日。</p>
+      <p class="section__sub">第0回目から知多を堪能できるお店が集結！詳細はタップしてチェック！</p>
     </div>
     <div class="cat-filter" id="catFilter" role="group" aria-label="カテゴリーで絞り込み">
       <button class="cat-filter__btn is-active" data-cat="ALL">ALL</button>
@@ -600,17 +649,41 @@
     <div class="section__head">
       <span class="section__eyebrow">BLUE SUN STAGE ／ 全11組</span>
       <h2 class="section__title">LINE UP</h2>
-      <p class="section__sub">海、青空、芝生、夏、夕日を感じられるBLUE SUN STAGE。タップして各アーティストのプロフィールをチェック。</p>
+      <p class="section__sub">BLUE SUN STAGEに11組の個性豊かなアーティストがラインナップ。タップして各アーティストのプロフィールをチェック。</p>
     </div>
     <div class="grid" id="artistGrid" role="list"></div>
   </section>
 
-  <!-- ========== GUIDELINE ========== -->
+  <!-- ========== SUNSET乾杯 (GUIDELINE) ========== -->
   <section class="panel section section--guideline" id="panel-guideline">
     <div class="section__head">
+      <span class="section__eyebrow">Sunset Toast</span>
+      <h2 class="section__title">SUNSET乾杯</h2>
+      <p class="section__sub">海に沈む夕日を眺めながら、みんなで乾杯する特別な時間。</p>
+    </div>
+
+    <div class="sunset-intro">
+      <h3 class="sunset-intro__title">SUNSET乾杯とは？</h3>
+      <p>PROJECT Shinmaiko 第0回に集まった皆さんと、新舞子の夕日を眺めながら、一緒に乾杯する時間です。<br>
+      海に沈んでいく夕日を眺めながら、会場にいるみんなで時間を共有する。そんな新舞子らしいひとときを、皆さんと一緒につくりたいと思っています。<br><br>
+      今回、SUNSET乾杯の時間に流れるBGMは、真夏の定番「サザンオールスターズ」。新舞子マリンパークの海水浴場で、サザンオールスターズを聴きながら、気持ちよく乾杯しましょう！<br><br>
+      会場にはキッチンカーや売店もあります。お酒でも、ソフトドリンクでも、飲み物は何でも大丈夫。それぞれ好きな飲み物を手に、夕暮れの新舞子で一緒に乾杯しましょう！</p>
+    </div>
+
+    <div class="sunset-card">
+      <span class="sunset-card__label">SUNSET乾杯</span>
+      <div class="sunset-card__time">8月9日（日）16:35頃から</div>
+      <div class="sunset-card__place">新舞子マリンパーク BLUE SUN STAGE周辺</div>
+    </div>
+
+    <div class="sunset-notice">
+      <p>※未成年者の飲酒は法律で禁止されています。お酒は20歳になってから。</p>
+      <p>※飲酒運転は絶対におやめください。お車を運転される方への酒類の提供はできません。</p>
+    </div>
+
+    <div class="section__head" style="margin-top:52px;">
       <span class="section__eyebrow">Please Read</span>
-      <h2 class="section__title">GUIDELINE</h2>
-      <p class="section__sub">気持ちよく楽しんでいただくための、来場にあたってのお願いです。</p>
+      <h3 class="sunset-intro__title">来場にあたってのお願い</h3>
     </div>
     <p class="draft-note">※このガイドラインはドラフトです。実際のルール（荒天時の対応・駐車場・ペット可否など）が決まり次第、内容を差し替えてください。</p>
     <div class="guide-list">
@@ -649,16 +722,15 @@
     </div>
     <div class="access-wrap">
       <div class="access-info">
-        <dl>
-          <dt>会場</dt><dd>新舞子マリンパーク</dd>
-          <dt>開催時間</dt><dd>10:00〜17:00</dd>
-          <dt>入場料</dt><dd>無料</dd>
-          <dt>住所</dt><dd>〒478-0000 愛知県知多市緑浜町2番地</dd>
-          <dt>電話</dt><dd>0562-56-3980（施設事務所）</dd>
-          <dt>電車</dt><dd>名鉄常滑線「新舞子」駅下車 徒歩約10分</dd>
-          <dt>車</dt><dd>国道155号（西知多産業道路）日長ICから西へ、新舞子グリーンラインを渡ってすぐ</dd>
-          <dt>駐車場</dt><dd>あり（台数に限りがあります。混雑時は近隣コインパーキングもご利用ください）</dd>
-        </dl>
+        <div class="access-block">
+          <h3 class="access-block__title">公共交通機関</h3>
+          <p class="access-block__text">名鉄常滑線「新舞子」駅下車、西へ徒歩約10分</p>
+        </div>
+        <div class="access-block">
+          <h3 class="access-block__title">自動車</h3>
+          <p class="access-block__text">国道155号（西知多産業道路）の日長IC下車→西へ、T字路を左折→市道を南下し→新舞子グリーンラインを渡って直ぐのところにあります。<br>（インターチェンジから約2分）</p>
+        </div>
+        <p class="access-venue"><strong>新舞子マリンパーク</strong><br>〒478-0000 愛知県知多市緑浜町2番地　TEL 0562-56-3980</p>
       </div>
       <div class="access-map">
         <iframe title="新舞子マリンパーク 地図" loading="lazy" src="https://maps.google.com/maps?q=%E6%84%9B%E7%9F%A5%E7%9C%8C%E7%9F%A5%E5%A4%9A%E5%B8%82%E7%B7%91%E6%B5%9C%E7%94%BA2&z=16&output=embed"></iframe>
@@ -762,7 +834,7 @@ const vendors = [
 
 const news = [
   {date:"2026.07.25", tag:"info", tagLabel:"INFO", title:"「PROJECT Shinmaiko 第0回」開催決定", excerpt:"8/9(日) 新舞子マリンパークにて、音楽とマルシェの一日を開催します。", goto:"top", image:"images/news-kaisai.png"},
-  {date:"2026.07.25", tag:"artist", tagLabel:"LINEUP", title:"出演アーティスト11組を発表", excerpt:"千花、かとう寛之、村屋光二ほか、渚のステージに集うラインナップを公開。", goto:"artist"},
+  {date:"2026.07.25", tag:"artist", tagLabel:"LINEUP", title:"出演アーティスト11組を発表", excerpt:"千花、かとう寛之、村屋光二ほか、ステージに集うラインナップを公開。", goto:"artist"},
   {date:"2026.07.25", tag:"marche", tagLabel:"MARCHE", title:"マルシェ出店14店舗を発表", excerpt:"キッチンカー・テント出店あわせて14店舗が集結。フード・ドリンク・体験まで。", goto:"marche"},
   {date:"2026.07.25", tag:"info", tagLabel:"INFO", title:"アクセス・ガイドラインを公開", excerpt:"会場までのアクセスと、当日の来場ルールをまとめました。", goto:"access", image:"images/news-access.png"}
 ];
