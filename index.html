@@ -451,6 +451,31 @@
   .sunset-notice p{font-family:var(--font-jp-body); font-size:14px; line-height:1.9; margin:0 0 6px; opacity:.9;}
   .sunset-notice p:last-child{margin-bottom:0;}
 
+  .timetable-list{display:flex; flex-direction:column; gap:2px;}
+  .timetable-row{
+    display:flex; align-items:center; gap:18px;
+    background:var(--card-bg); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+    border:1px solid var(--card-border); border-left:5px solid var(--gold);
+    border-radius:4px 12px 12px 4px;
+    padding:14px 18px;
+    cursor:pointer; text-align:left; color:var(--white); width:100%;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .timetable-row:hover, .timetable-row:focus-visible{background:rgba(255,255,255,0.22); transform:translateX(4px);}
+  .timetable-row:nth-child(4n+1){border-left-color:var(--gold);}
+  .timetable-row:nth-child(4n+2){border-left-color:var(--coral);}
+  .timetable-row:nth-child(4n+3){border-left-color:var(--turquoise);}
+  .timetable-row:nth-child(4n+4){border-left-color:var(--grass);}
+  .timetable-row.is-sunset{border-left-color:var(--coral); background:linear-gradient(135deg, rgba(255,200,61,0.22), rgba(255,114,87,0.18));}
+  .timetable-row__time{
+    flex:0 0 auto; font-family:var(--font-condensed); font-weight:600; letter-spacing:.03em; font-size:14px;
+    min-width:118px;
+  }
+  .timetable-row__name{
+    flex:1; min-width:0; font-family:var(--font-jp-heading); font-weight:700; letter-spacing:.02em; font-size:17px;
+  }
+  .timetable-row__arrow{flex:0 0 auto; opacity:.6; font-family:var(--font-condensed);}
+
   /* ---------- access ---------- */
   .access-wrap{display:grid; gap:34px; grid-template-columns:1fr;}
   @media(min-width:860px){.access-wrap{grid-template-columns:1fr 1.2fr;}}
@@ -662,6 +687,7 @@
     <button class="tab" data-tab="top" role="tab">TOP</button>
     <button class="tab" data-tab="marche" role="tab">MARCHE</button>
     <button class="tab" data-tab="artist" role="tab">ARTIST</button>
+    <button class="tab" data-tab="timetable" role="tab">TIMETABLE</button>
     <button class="tab" data-tab="guideline" role="tab">SUNSET乾杯</button>
     <button class="tab" data-tab="access" role="tab">ACCESS</button>
   </div>
@@ -725,6 +751,16 @@
       <p class="section__sub">BLUE SUN STAGEに11組の個性豊かなアーティストがラインナップ。タップして各アーティストのプロフィールをチェック。</p>
     </div>
     <div class="grid" id="artistGrid" role="list"></div>
+  </section>
+
+  <!-- ========== TIMETABLE ========== -->
+  <section class="panel section section--artist" id="panel-timetable">
+    <div class="section__head">
+      <span class="section__eyebrow">BLUE SUN STAGE ／ 2026.08.09 10:00→17:00</span>
+      <h2 class="section__title">TIMETABLE</h2>
+      <p class="section__sub">出演順はこちら。タップするとアーティストのプロフィールが見られます。</p>
+    </div>
+    <div class="timetable-list" id="timetableList"></div>
   </section>
 
   <!-- ========== SUNSET乾杯 (GUIDELINE) ========== -->
@@ -843,17 +879,17 @@
 <script>
 
 const artists = [
-  {id:"chika", name:"千花", time:"", image:"images/chika-1.jpg", role:"SINGER SONGWRITER", description:"愛知を拠点に全国で活動するシンガーソングライター。YouTube・SHOWROOM・X・Instagramなど幅広いネット配信で注目を集め、視聴者とリアルタイムで交流するライブ配信を中心に活動する。透明感とどこか切なさを感じさせる歌声で多くのファンを魅了。釣りメーカー「BASSDAY」イメージガール、日本釣振興会愛知県支部の公式レポーターも務め、WEBアニメ「シンクロ」にダリヤdot.WAV役として声優・歌手出演も控えている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"kato-hiroyuki", name:"かとう寛之", time:"", image:"images/kato-hiroyuki-1.jpg", role:"SINGER SONGWRITER / GUITARIST", description:"知多市出身のシンガーソングライター・ギタリスト・ラジオパーソナリティ・音楽教室講師。（株）エアプレイ所属、知多市ふるさと観光大使。TV「開運！なんでも鑑定団」EDテーマ（2015）、知多市45周年CMソングを手がけ、たま「さよなら人類2023ver」でコーラス参加。2024年11月にウルフルケイスケ氏（ウルフルズ）と共演し、2026年7月に二度目の共演が実現した。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"muraya-koji", name:"村屋光二", time:"", image:"images/muraya-koji-1.jpg", role:"SINGER SONGWRITER / PRODUCER", description:"2006年、ロックバンド「redballoon」のボーカル・ギターとしてSony Musicよりメジャーデビュー。『銀魂』テーマソング「雪のツバサ」「銀色の空」がオリコンTOP10入りを記録。2017年にはフランス・パリ「Japan Expo」に出演し日本の音楽を海外へ発信。現在はソロ活動のほかVIVACE、BYMP BANDで活動し、日韓合同オーディション番組『トロット・ガールズ・ジャパン』では総合ヴォイストレーナーを担当。知多市ふるさと観光大使としても地域活性化に取り組む。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"kawaguchi-tiger", name:"川口タイガー祐介", time:"", image:"images/kawaguchi-tiger-1.jpg", role:"SINGER SONGWRITER / PRODUCER", description:"愛知・名古屋を拠点に活動するシンガーソングライター／プロデューサー。2009年に作詞家としてキャリアをスタートし、2019年に1stフルアルバム『TIGERS MANSION』をリリース。弾き語りからバンドサウンドまで自在に行き来し、日常のリアルと内面の葛藤を生々しい言葉で描き出す。現在はBYMP BAND所属。代表作は「今夜も一杯付き合って」。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"tayutaedo", name:"tayutaedo", time:"", image:"images/tayutaedo-1.jpg", role:"BAND", description:"昨年末に惜しまれつつ閉店した新舞子Limaをホームに長年活動してきたメンバーで新たに結成した、お酒大好き中年モラトリアムコピーバンド。J-POPやJ-ROCKの名曲を楽しく演奏する。みなさん乾杯しましょう🍻", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"dela-aa", name:"DeLa AA（でらええに）", time:"", image:"images/delaaa-1.jpg", role:"INSTRUMENTAL BAND", description:"2026年結成。名古屋のベテラン2人と三重の若者2人がコラボしたインストバンド。水谷吉典（Gt）・石垣篤友（E.Bass）・山中颯真（Gt）・濵口あい（Dr）による熱いインタープレイに乞うご期待。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"lilsae", name:"Lilsae", time:"", image:"images/lilsae-1.jpg", role:"SINGER SONGWRITER", description:"愛知を拠点に活動するソロアーティスト。ロックを軸に、パンクロック、シューゲイザーなど多様なサウンドを独自に融合させた音楽を創り出す。SNSを中心に活動を展開し、TikTokでは10万人を超えるフォロワーを持つオンライン発アーティストとして注目を集めている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"candyblue-diamond", name:"CANDY☆BLUE DIAMOND", time:"", image:"images/candyblue-diamond-1.jpg", role:"OLDIES & ROCK'N'ROLL BAND", description:"懐かしいオールディーズのナンバーや昭和歌謡のロカビリーなアレンジで踊りだしたくなるハッピーなライブをお届け。ロカビリーユニット「CANDY☆BLUE」のAKIRA（Gt/Vo）とCatherine（MC/Vo）を中心に、ドラム・ベース・ギター・キーボードが加わった大人のロックンロールバンド。海や夏を意識したナンバーをロカビリー／オールディーズのロックンロールで届ける。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"chiritotaba", name:"塵と束（チリとタバ）", time:"", image:"images/chiritotaba-1.jpg", role:"EXPERIMENTAL UNIT", description:"PROJECT Shinmaikoで結成した、男と女の実験的音楽ユニット。ボーカル曲があったり、同じフレーズを10分くらい演奏したりとカオスすぎて、最終的にちゃんと終われるのか本人たちもわかっていない。今回が初ライブ。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"novaly", name:"NOVALY", time:"", image:"images/novaly-1.jpg", role:"EVENT TEAM", description:"イベントチームとして活動。まだまだ未熟だが、会場の皆を楽しませるパフォーマンスを披露する。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
-  {id:"kokopelli", name:"KOKOPELLI", time:"", image:"images/kokopelli-1.jpg", role:"TRIPLE OCARINA UNIT", description:"トリプルオカリナの魅力を伝えるために、ここぺりん星からやってきた3人組。若い世代にもオカリナを知ってもらうため、オカリナのイメージを変えるため、ノリノリな曲を中心に演奏している。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}}
+  {id:"chika", name:"千花", time:"11:05–11:25", image:"images/chika-1.jpg", role:"SINGER SONGWRITER", description:"愛知を拠点に全国で活動するシンガーソングライター。YouTube・SHOWROOM・X・Instagramなど幅広いネット配信で注目を集め、視聴者とリアルタイムで交流するライブ配信を中心に活動する。透明感とどこか切なさを感じさせる歌声で多くのファンを魅了。釣りメーカー「BASSDAY」イメージガール、日本釣振興会愛知県支部の公式レポーターも務め、WEBアニメ「シンクロ」にダリヤdot.WAV役として声優・歌手出演も控えている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"kato-hiroyuki", name:"かとう寛之", time:"12:25–12:50", image:"images/kato-hiroyuki-1.jpg", role:"SINGER SONGWRITER / GUITARIST", description:"知多市出身のシンガーソングライター・ギタリスト・ラジオパーソナリティ・音楽教室講師。（株）エアプレイ所属、知多市ふるさと観光大使。TV「開運！なんでも鑑定団」EDテーマ（2015）、知多市45周年CMソングを手がけ、たま「さよなら人類2023ver」でコーラス参加。2024年11月にウルフルケイスケ氏（ウルフルズ）と共演し、2026年7月に二度目の共演が実現した。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"muraya-koji", name:"村屋光二", time:"16:25–16:35", image:"images/muraya-koji-1.jpg", role:"SINGER SONGWRITER / PRODUCER", description:"2006年、ロックバンド「redballoon」のボーカル・ギターとしてSony Musicよりメジャーデビュー。『銀魂』テーマソング「雪のツバサ」「銀色の空」がオリコンTOP10入りを記録。2017年にはフランス・パリ「Japan Expo」に出演し日本の音楽を海外へ発信。現在はソロ活動のほかVIVACE、BYMP BANDで活動し、日韓合同オーディション番組『トロット・ガールズ・ジャパン』では総合ヴォイストレーナーを担当。知多市ふるさと観光大使としても地域活性化に取り組む。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"kawaguchi-tiger", name:"川口タイガー祐介", time:"14:15–14:40", image:"images/kawaguchi-tiger-1.jpg", role:"SINGER SONGWRITER / PRODUCER", description:"愛知・名古屋を拠点に活動するシンガーソングライター／プロデューサー。2009年に作詞家としてキャリアをスタートし、2019年に1stフルアルバム『TIGERS MANSION』をリリース。弾き語りからバンドサウンドまで自在に行き来し、日常のリアルと内面の葛藤を生々しい言葉で描き出す。現在はBYMP BAND所属。代表作は「今夜も一杯付き合って」。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"tayutaedo", name:"tayutaedo", time:"13:40–14:05", image:"images/tayutaedo-1.jpg", role:"BAND", description:"昨年末に惜しまれつつ閉店した新舞子Limaをホームに長年活動してきたメンバーで新たに結成した、お酒大好き中年モラトリアムコピーバンド。J-POPやJ-ROCKの名曲を楽しく演奏する。みなさん乾杯しましょう🍻", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"dela-aa", name:"DeLa AA（でらええに）", time:"10:30–10:55", image:"images/delaaa-1.jpg", role:"INSTRUMENTAL BAND", description:"2026年結成。名古屋のベテラン2人と三重の若者2人がコラボしたインストバンド。水谷吉典（Gt）・石垣篤友（E.Bass）・山中颯真（Gt）・濵口あい（Dr）による熱いインタープレイに乞うご期待。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"lilsae", name:"Lilsae", time:"15:25–15:50", image:"images/lilsae-1.jpg", role:"SINGER SONGWRITER", description:"愛知を拠点に活動するソロアーティスト。ロックを軸に、パンクロック、シューゲイザーなど多様なサウンドを独自に融合させた音楽を創り出す。SNSを中心に活動を展開し、TikTokでは10万人を超えるフォロワーを持つオンライン発アーティストとして注目を集めている。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"candyblue-diamond", name:"CANDY☆BLUE DIAMOND", time:"11:30–12:15", image:"images/candyblue-diamond-1.jpg", role:"OLDIES & ROCK'N'ROLL BAND", description:"懐かしいオールディーズのナンバーや昭和歌謡のロカビリーなアレンジで踊りだしたくなるハッピーなライブをお届け。ロカビリーユニット「CANDY☆BLUE」のAKIRA（Gt/Vo）とCatherine（MC/Vo）を中心に、ドラム・ベース・ギター・キーボードが加わった大人のロックンロールバンド。海や夏を意識したナンバーをロカビリー／オールディーズのロックンロールで届ける。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"chiritotaba", name:"塵と束（チリとタバ）", time:"10:00–10:20", image:"images/chiritotaba-1.jpg", role:"EXPERIMENTAL UNIT", description:"PROJECT Shinmaikoで結成した、男と女の実験的音楽ユニット。ボーカル曲があったり、同じフレーズを10分くらい演奏したりとカオスすぎて、最終的にちゃんと終われるのか本人たちもわかっていない。今回が初ライブ。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"novaly", name:"NOVALY", time:"13:00–13:10", image:"images/novaly-1.jpg", role:"EVENT TEAM", description:"イベントチームとして活動。まだまだ未熟だが、会場の皆を楽しませるパフォーマンスを披露する。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}},
+  {id:"kokopelli", name:"KOKOPELLI", time:"14:50–15:15", image:"images/kokopelli-1.jpg", role:"TRIPLE OCARINA UNIT", description:"トリプルオカリナの魅力を伝えるために、ここぺりん星からやってきた3人組。若い世代にもオカリナを知ってもらうため、オカリナのイメージを変えるため、ノリノリな曲を中心に演奏している。", officialSite:"", socials:{instagram:"", x:"", youtube:"", tiktok:"", facebook:""}}
 ];
 
 const vendors = [
@@ -874,6 +910,7 @@ const vendors = [
 ];
 
 const news = [
+  {date:"2026.08.02", tag:"artist", tagLabel:"TIMETABLE", title:"BLUE SUN STAGE タイムテーブルを発表", excerpt:"10:00の塵と束から、16:35からのサンセット乾杯まで。出演順が決まりました。", goto:"timetable"},
   {date:"2026.07.25", tag:"info", tagLabel:"INFO", title:"「PROJECT Shinmaiko 第0回」開催決定", excerpt:"8/9(日) 新舞子マリンパークにて、音楽とマルシェの一日を開催します。", goto:"top", image:"images/news-kaisai.png"},
   {date:"2026.07.25", tag:"artist", tagLabel:"LINEUP", title:"出演アーティスト11組を発表", excerpt:"千花、かとう寛之、村屋光二ほか、ステージに集うラインナップを公開。", goto:"artist"},
   {date:"2026.07.25", tag:"marche", tagLabel:"MARCHE", title:"マルシェ出店14店舗を発表", excerpt:"キッチンカー・テント出店あわせて14店舗が集結。フード・ドリンク・体験まで。", goto:"marche"},
@@ -916,6 +953,42 @@ displayArtists.forEach((a, i) => {
     </span>`;
   btn.addEventListener('click', () => openArtistModal(i, btn));
   artistGrid.appendChild(btn);
+});
+
+/* ---------- TIMETABLE (always chronological, never shuffled) ---------- */
+const timetableData = [
+  {time:"10:00–10:20", artistId:"chiritotaba"},
+  {time:"10:30–10:55", artistId:"dela-aa"},
+  {time:"11:05–11:25", artistId:"chika"},
+  {time:"11:30–12:15", artistId:"candyblue-diamond"},
+  {time:"12:25–12:50", artistId:"kato-hiroyuki"},
+  {time:"13:00–13:10", artistId:"novaly"},
+  {time:"13:40–14:05", artistId:"tayutaedo"},
+  {time:"14:15–14:40", artistId:"kawaguchi-tiger"},
+  {time:"14:50–15:15", artistId:"kokopelli"},
+  {time:"15:25–15:50", artistId:"lilsae"},
+  {time:"16:25–16:35", artistId:"muraya-koji"},
+  {time:"16:35–16:50", name:"サンセット乾杯", sunset:true}
+];
+
+const timetableList = document.getElementById('timetableList');
+timetableData.forEach(row => {
+  const artist = row.artistId ? artists.find(a => a.id === row.artistId) : null;
+  const name = artist ? artist.name : row.name;
+  const btn = document.createElement('button');
+  btn.className = 'timetable-row' + (row.sunset ? ' is-sunset' : '');
+  btn.innerHTML = `<span class="timetable-row__time">${row.time}</span>
+    <span class="timetable-row__name">${name}</span>
+    <span class="timetable-row__arrow">›</span>`;
+  if (row.sunset){
+    btn.addEventListener('click', () => switchTab('guideline'));
+  } else {
+    btn.addEventListener('click', () => {
+      const idx = displayArtists.findIndex(a => a.id === row.artistId);
+      if (idx > -1) openArtistModal(idx, btn);
+    });
+  }
+  timetableList.appendChild(btn);
 });
 
 function catTagsHTML(categories){
@@ -997,7 +1070,7 @@ function switchTab(name){
 tabButtons.forEach(b => b.addEventListener('click', () => switchTab(b.dataset.tab)));
 
 const initial = (location.hash || '#top').replace('#','');
-const valid = ['top','marche','artist','guideline','access'];
+const valid = ['top','marche','artist','timetable','guideline','access'];
 switchTab(valid.includes(initial) ? initial : 'top');
 
 /* ---------- artist modal (dedicated, per artist-detail spec) ---------- */
