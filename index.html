@@ -32,7 +32,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oswald:wght@400;500;600&family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Bodoni+Moda:ital,opsz,wght@1,6..96,400..700&family=Jost:wght@400..600&family=Zen+Kaku+Gothic+New:wght@500;700&family=Oswald:wght@400;500;600&family=M+PLUS+Rounded+1c:wght@500;700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 
 <script type="application/ld+json">
 {
@@ -673,6 +673,208 @@
     *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
     html{scroll-behavior:auto;}
   }
+
+  /* ==========================================================
+     TOP：海とヤシの動画LP（③）
+     動画は画面に貼り付いたまま、3つの画面が上を流れていく。
+     ========================================================== */
+  :root{ --nav-h:96px; --lp-h:calc(100vh - var(--nav-h)); }
+  @supports (height:100svh){ :root{ --lp-h:calc(100svh - var(--nav-h)); } }
+  /* TOPを開いているときだけ、各画面の頭でクッと止まる */
+  html.lp-snap{ scroll-snap-type:y mandatory; scroll-padding-top:var(--nav-h); }
+  html.lp-snap .footer{ scroll-snap-align:end; }
+
+  .lp{
+    --lp-ink:#07151a; --lp-foam:#f6fbfb;
+    --lp-haze:rgba(7,21,26,.28); --lp-shade:rgba(7,21,26,.45);
+    --lp-mist:#f3fafb; --lp-deep:#0a3440; --lp-glow:rgba(255,255,255,.75);
+    --lp-display:"Bodoni Moda","Didot","Times New Roman",serif;
+    --lp-label:"Jost","Futura","Helvetica Neue",Arial,sans-serif;
+    --lp-jp:"Jost","Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+    --lp-display-weight:500; --lp-display-opsz:"opsz" 36;
+    position:relative; background:var(--lp-ink); color:var(--lp-foam);
+    cursor:pointer; -webkit-tap-highlight-color:transparent;
+  }
+  .lp__bg{
+    position:sticky; top:var(--nav-h); height:var(--lp-h);
+    overflow:hidden; z-index:0;
+  }
+  /* 動画の層の上に、1枚目を重ねて始める（動画はLPの終わりで一緒に流れていく） */
+  .lp-hero{ margin-top:calc(var(--lp-h) * -1); }
+  .lp-scene{ position:absolute; inset:0; opacity:0; transition:opacity 1.4s ease-in-out; }
+  .lp-scene.on{ opacity:1; }
+  .lp-scene video, .lp-scene img{
+    position:absolute; inset:0; width:100%; height:100%; max-width:none;
+    object-fit:cover; object-position:50% var(--y,38%);
+    filter:brightness(calc(1 + var(--p,0) * .22)) saturate(calc(1 + var(--p,0) * .12));
+  }
+  .lp__bg::after{
+    content:""; position:absolute; inset:0; pointer-events:none;
+    opacity:calc(1 - var(--p,0) * .85);
+    background:
+      radial-gradient(ellipse at 50% 45%, transparent 30%, var(--lp-haze) 100%),
+      linear-gradient(to bottom, transparent 60%, var(--lp-shade));
+  }
+  .lp-veil{
+    position:absolute; inset:0; z-index:1; pointer-events:none;
+    background:var(--lp-mist); opacity:calc(var(--p,0) * var(--mist-max,.3));
+    transition:opacity 1.4s ease-in-out;
+  }
+  /* スマホ（指で操作する端末）では、タップに素早く応えて切り替える */
+  @media (hover:none) and (pointer:coarse){
+    .lp-scene, .lp-veil{ transition-duration:.35s; }
+  }
+
+  .lp-hint{
+    position:absolute; left:50%; bottom:28px; z-index:2; transform:translateX(-50%);
+    display:grid; justify-items:center; gap:.6rem; pointer-events:none;
+    font-family:var(--lp-label); font-weight:600; font-size:.72rem;
+    letter-spacing:.4em; margin-right:-.4em;
+    opacity:calc((1 - var(--p,0) * 3) * .85);
+  }
+  .lp-hint i{ display:block; width:2px; height:44px; background:var(--lp-foam); transform-origin:top; animation:lpDrip 2.2s ease-in-out infinite; }
+
+  .lp-dots{ position:absolute; z-index:3; right:20px; bottom:22px; display:flex; gap:10px; }
+  .lp-dots button{ width:22px; height:22px; padding:0; border:0; background:none; cursor:pointer; display:grid; place-items:center; }
+  .lp-dots button::before{
+    content:""; width:7px; height:7px; border-radius:50%;
+    border:1.5px solid var(--lp-foam); box-shadow:0 0 6px rgba(0,0,0,.3); transition:background .4s;
+  }
+  .lp-dots button[aria-pressed="true"]::before{ background:var(--lp-foam); }
+  .lp-dots button:focus-visible{ outline:2px solid var(--lp-foam); outline-offset:2px; border-radius:50%; }
+
+  .lp-screen{
+    position:relative; z-index:2; min-height:var(--lp-h);
+    display:grid; place-content:center; justify-items:center;
+    padding:0 16px; text-align:center;
+    text-shadow:0 2px 24px rgba(0,0,0,.35);
+    scroll-snap-align:start; scroll-snap-stop:always;
+  }
+  .lp-rule{ display:block; width:clamp(3rem,8vw,6rem); height:2px; background:var(--lp-foam); opacity:.8; }
+
+  /* 1枚目 */
+  .lp-hero__inner{
+    display:grid; justify-items:center; gap:clamp(.4rem,1.2vw,.9rem);
+    opacity:calc(1 - var(--p,0) * 1.4);
+    transform:translateY(calc(var(--p,0) * -8vh));
+  }
+  .lp-hero__float{ display:grid; justify-items:center; gap:inherit; animation:lpFloat 7s ease-in-out infinite; }
+  .lp-eyebrow{
+    font-family:var(--lp-label); font-weight:600; font-size:clamp(.85rem,1.7vw,1.2rem);
+    letter-spacing:.6em; margin-right:-.6em;
+    opacity:0; animation:lpRise 1.6s .3s ease-out forwards;
+  }
+  .lp-hero h2{
+    margin:0; font-family:var(--lp-display); font-style:italic; font-weight:var(--lp-display-weight);
+    font-variation-settings:var(--lp-display-opsz);
+    font-size:clamp(3.6rem,15vw,10.5rem); line-height:.95; letter-spacing:.01em; text-transform:none;
+    opacity:0; animation:lpRise 2s .7s ease-out forwards;
+  }
+  .lp-hero .lp-rule{ opacity:0; transform:scaleX(0); animation:lpDraw 1.4s 1.5s ease-out forwards; }
+
+  /* 2枚目：日付 */
+  .lp-date{
+    gap:clamp(.8rem,2vw,1.4rem); color:var(--lp-deep);
+    text-shadow:0 0 2px var(--lp-glow), 0 0 18px var(--lp-glow), 0 0 48px rgba(255,255,255,.55);
+  }
+  .lp-date time{ display:grid; justify-items:center; gap:clamp(.6rem,1.6vw,1.1rem); }
+  .lp-date__num{
+    font-family:var(--lp-label); font-weight:500; font-size:clamp(3rem,13vw,9rem); line-height:1;
+    letter-spacing:.06em; margin-right:-.06em; font-variant-numeric:lining-nums;
+  }
+  .lp-date__num .dot{ margin:0 .06em; }
+  .lp-date__day{ font-family:var(--lp-label); font-weight:600; font-size:clamp(.95rem,2vw,1.35rem); letter-spacing:.45em; margin-right:-.45em; }
+  .lp-date__day .hol{ letter-spacing:.1em; }
+  .lp-date .lp-rule, .lp-msg .lp-rule{ background:var(--lp-deep); box-shadow:0 0 12px var(--lp-glow); }
+
+  /* 3枚目：開催のお知らせ */
+  .lp-msg{
+    gap:clamp(1.6rem,4vw,2.6rem); color:var(--lp-deep);
+    font-family:var(--lp-jp); font-weight:500;
+    text-shadow:0 0 2px var(--lp-glow), 0 0 14px var(--lp-glow), 0 0 36px rgba(255,255,255,.5);
+    padding-top:6vh; padding-bottom:6vh;
+  }
+  .lp-msg p{ margin:0; }
+  .lp-msg .ln{ display:block; }
+  .lp-msg__lead{ font-size:clamp(1.35rem,3.4vw,2.3rem); font-weight:700; line-height:1.6; letter-spacing:.06em; }
+  .lp-msg__lead .name{ font-family:var(--lp-label); font-weight:600; letter-spacing:.12em; }
+  .lp-msg__body{ font-size:clamp(1rem,1.9vw,1.25rem); line-height:2.1; letter-spacing:.08em; }
+  .lp-msg__body .place{ font-weight:700; }
+  .lp-msg__close{ font-size:clamp(1.1rem,2.4vw,1.5rem); font-weight:700; line-height:1.9; letter-spacing:.08em; }
+  @media (max-width:480px){
+    .lp-msg__lead, .lp-msg__body, .lp-msg__close{ letter-spacing:.02em; }
+    .lp-msg__close{ font-size:1.05rem; }
+  }
+
+  /* 下から浮かび上がる動き（JSが動くときだけ隠しておく） */
+  .lp-js .lp-reveal > *{
+    opacity:0; transform:translateY(40px); filter:blur(6px);
+    transition:opacity 1.4s ease-out, transform 1.4s cubic-bezier(.2,.7,.2,1), filter 1.4s ease-out;
+  }
+  .lp-js .lp-reveal > *:nth-child(2){ transition-delay:.25s; }
+  .lp-js .lp-reveal > *:nth-child(3){ transition-delay:.5s; }
+  .lp-js .lp-reveal > *:nth-child(4){ transition-delay:.75s; }
+  .lp-js .lp-reveal.in > *{ opacity:1; transform:none; filter:none; }
+  .lp-js .lp-reveal.in > .lp-rule{ opacity:.8; }
+
+  @keyframes lpRise{ from{opacity:0; transform:translateY(14px); filter:blur(6px);} to{opacity:1; transform:none; filter:none;} }
+  @keyframes lpDraw{ to{opacity:.8; transform:scaleX(1);} }
+  @keyframes lpFloat{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+  @keyframes lpDrip{ 0%{transform:scaleY(0); opacity:1;} 60%{transform:scaleY(1); opacity:1;} 100%{transform:scaleY(1); opacity:0;} }
+
+  /* 動画から下のページへ、波でつなぐ */
+  .lp-wave{ position:relative; z-index:3; margin-top:calc(clamp(28px,6.25vw,90px) * -1); }
+
+  /* ---------- 2026年の様子（アフタームービーへのバナー） ---------- */
+  .lp-after{ scroll-snap-align:start; }
+  .past-wrap{ background:#EAF6F3; padding:clamp(28px,5vw,48px) 6vw 0; }
+  .past-card{
+    position:relative; overflow:hidden; isolation:isolate;
+    display:grid; align-content:end; gap:10px;
+    max-width:900px; margin:0 auto; min-height:clamp(220px,32vw,320px);
+    padding:clamp(24px,4vw,40px);
+    border-radius:22px; box-shadow:var(--card-shadow);
+    color:var(--white); text-decoration:none;
+    background:
+      radial-gradient(circle at 80% 12%, rgba(255,200,61,0.55) 0%, rgba(255,200,61,0) 45%),
+      radial-gradient(circle at 20% 20%, rgba(255,114,87,0.5) 0%, rgba(255,114,87,0) 48%),
+      linear-gradient(165deg, #E0723F 0%, #B44B5C 42%, #4A3B6B 75%, #073A54 100%);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .past-card::before{
+    content:''; position:absolute; inset:-20%; z-index:-1; pointer-events:none;
+    background:url('images/logo-sun.png') no-repeat 78% 40% / min(60%,420px);
+    filter:blur(30px); opacity:.35;
+  }
+  a.past-card:hover{ transform:translateY(-3px); box-shadow:0 18px 45px rgba(7,58,84,0.22); }
+  a.past-card:focus-visible{ outline:3px solid var(--gold); outline-offset:4px; }
+  .past-card__eyebrow{ font-family:var(--font-condensed); font-weight:500; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); margin:0; }
+  .past-card__title{ font-family:var(--font-jp-heading); font-weight:800; font-size:clamp(30px,5.4vw,52px); line-height:1.15; letter-spacing:.02em; margin:0; }
+  .past-card__sub{ font-size:15px; opacity:.88; margin:0; }
+  .past-card__cta{
+    justify-self:start; margin-top:8px;
+    display:inline-flex; align-items:center; gap:10px;
+    background:var(--white); color:var(--ink);
+    font-family:var(--font-jp-heading); font-weight:700; font-size:15px;
+    padding:11px 20px 11px 14px; border-radius:999px;
+  }
+  .past-card__cta svg{ width:22px; height:22px; flex:0 0 auto; }
+  .past-card__cta--soon{ background:rgba(255,255,255,.2); color:var(--white); padding-left:20px; }
+  .past-card__play{
+    position:absolute; right:clamp(20px,4vw,40px); top:clamp(20px,4vw,40px);
+    width:clamp(52px,8vw,72px); height:clamp(52px,8vw,72px); border-radius:50%;
+    display:grid; place-items:center;
+    background:rgba(255,255,255,.18); border:1.5px solid rgba(255,255,255,.7);
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  }
+  .past-card__play::before{ content:''; margin-left:4px; border-style:solid; border-width:10px 0 10px 17px; border-color:transparent transparent transparent var(--white); }
+
+  @media (prefers-reduced-motion: reduce){
+    .lp *, .lp *::before, .lp *::after{ animation:none !important; transition:none !important; }
+    .lp-eyebrow, .lp-hero h2{ opacity:1; }
+    .lp-hero .lp-rule{ opacity:.8; transform:none; }
+    .lp-js .lp-reveal > *{ opacity:1; transform:none; filter:none; }
+  }
 </style>
 </head>
 <body>
@@ -697,20 +899,78 @@
 
   <!-- ========== TOP (news) ========== -->
   <section class="panel" id="panel-top">
-    <div class="banner">
-      <div class="banner__sun" aria-hidden="true"><img src="images/logo-sun.png" alt=""></div>
-      <p class="banner__eyebrow">知多・新舞子でワクワクしよう、第0回</p>
-      <h1>PROJECT Shinmaiko</h1>
-      <p class="banner__catch">新舞子で、新しい文化を。</p>
-      <p class="banner__lead">音楽、マルシェ、食、人、地元、子どもたちをつなぎ、新舞子の海辺で新しい文化を育てていく地域プロジェクトです。海風を感じながら音楽を楽しめる、ゆったりとした一日を。</p>
-      <div class="banner__meta banner__meta--large">
-        <div><div class="label">DATE</div><div class="value">2026.08.09 SUN 10:00-17:00</div></div>
-        <div><div class="label">PLACE</div><div class="value">新舞子マリンパーク</div></div>
+    <!-- ③：海とヤシの動画LP（タップ／クリックで景色が入れ替わる） -->
+    <div class="lp" id="lp">
+      <div class="lp__bg" aria-hidden="false">
+        <div class="lp-scene on" data-mist=".3" style="--y:38%" aria-hidden="true">
+          <img src="lp-sea-poster.jpg" alt="">
+          <video src="sea.mp4" poster="lp-sea-poster.jpg" autoplay muted loop playsinline preload="auto"></video>
+        </div>
+        <div class="lp-scene" data-mist=".45" style="--y:30%" aria-hidden="true">
+          <img src="lp-palm-poster.jpg" alt="">
+          <video src="palm.mp4" poster="lp-palm-poster.jpg" muted loop playsinline preload="metadata"></video>
+        </div>
+        <div class="lp-veil" aria-hidden="true"></div>
+        <div class="lp-hint" aria-hidden="true">SCROLL<i></i></div>
+        <div class="lp-dots" role="group" aria-label="背景の景色">
+          <button type="button" id="lp-scene-1" aria-label="海" aria-pressed="true"></button>
+          <button type="button" id="lp-scene-2" aria-label="ヤシ" aria-pressed="false"></button>
+        </div>
       </div>
+
+      <section class="lp-screen lp-hero" aria-label="PROJECT Shinmaiko">
+        <div class="lp-hero__inner">
+          <div class="lp-hero__float">
+            <span class="lp-eyebrow">PROJECT</span>
+            <h2>Shinmaiko</h2>
+            <span class="lp-rule"></span>
+          </div>
+        </div>
+      </section>
+
+      <section class="lp-screen lp-date lp-reveal" aria-label="開催日">
+        <time datetime="2027-05-05">
+          <span class="lp-date__num">2027<span class="dot">.</span>5<span class="dot">.</span>5</span>
+          <span class="lp-date__day">WED <span class="hol">（祝）</span></span>
+        </time>
+        <span class="lp-rule"></span>
+      </section>
+
+      <section class="lp-screen lp-msg lp-reveal" aria-label="開催のお知らせ">
+        <p class="lp-msg__lead">
+          <span class="ln">2026年に始動した</span>
+          <span class="ln"><span class="name">PROJECT Shinmaiko</span>が</span>
+          <span class="ln">2027年5月、</span>
+          <span class="ln">第一回目の音楽＆マルシェを</span>
+          <span class="ln">開催決定！</span>
+        </p>
+        <p class="lp-msg__body">
+          <span class="ln">音楽ファンも、カルチャー好きも、</span>
+          <span class="ln">若者も、家族連れも楽しめる一日を</span>
+          <span class="ln place">愛知県知多市新舞子マリンパークで！</span>
+        </p>
+        <p class="lp-msg__close">
+          <span class="ln">2027年5月5日、こどもの日は</span>
+          <span class="ln">スケジュールを空けておいてくださいね！</span>
+        </p>
+        <span class="lp-rule"></span>
+      </section>
     </div>
-    <svg class="wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+    <svg class="wave lp-wave" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
       <path fill="#EAF6F3" d="M0,32 C240,80 480,0 720,28 C960,56 1200,88 1440,40 L1440,90 L0,90 Z"></path>
     </svg>
+
+    <div class="lp-after">
+    <!-- 2026年の様子：アフタームービーへのバナー（リンク先はスクリプト内 AFTER_MOVIE_URL で設定） -->
+    <div class="past-wrap">
+      <a class="past-card" id="pastCard" href="#" target="_blank" rel="noopener noreferrer">
+        <span class="past-card__play" aria-hidden="true"></span>
+        <p class="past-card__eyebrow">After Movie ／ 2026.08.09 SUN 第0回</p>
+        <h2 class="past-card__title">2026年の様子</h2>
+        <p class="past-card__sub">新舞子マリンパーク BLUE SUN STAGE ＆ マルシェ</p>
+        <span class="past-card__cta" id="pastCardCta"></span>
+      </a>
+    </div>
 
     <div class="news-wrap">
     <div class="news">
@@ -721,6 +981,7 @@
       <div class="news__list" id="newsList"></div>
     </div>
     </div>
+    </div><!-- /lp-after -->
   </section>
 
   <!-- ========== MARCHE ========== -->
@@ -1368,6 +1629,101 @@ vendorModalPanel.addEventListener('touchend', (e) => {
   }
   vendorTouchStartX = null;
 }, {passive:true});
+
+/* ==========================================================
+   TOP：海とヤシの動画LP（③）
+   ========================================================== */
+/* ▼ アフタームービー（Instagram）のURLをここに入れてください。空のままだと「近日公開」と表示されます */
+const AFTER_MOVIE_URL = "https://www.instagram.com/reel/DeBLJ0SqKvl/";
+
+(function(){
+  const lp = document.getElementById('lp');
+  if(!lp) return;
+  const root = document.documentElement;
+  const nav = document.querySelector('.nav');
+  const topPanel = document.getElementById('panel-top');
+  root.classList.add('lp-js');
+
+  // ナビの高さぶんを差し引いて、動画をちょうど1画面に収める
+  const setNav = () => root.style.setProperty('--nav-h', nav.offsetHeight + 'px');
+  setNav();
+  addEventListener('resize', setNav);
+
+  // 景色（①海 ⇄ ②ヤシ）
+  const scenes = [...lp.querySelectorAll('.lp-scene')];
+  const dots = [...lp.querySelectorAll('.lp-dots button')];
+  const vid = i => scenes[i].querySelector('video');
+  let cur = 0, pauseTimer;
+  const play = i => { const v = vid(i); v.preload = 'auto'; v.play().catch(() => {}); };
+  const show = i => {
+    if(i === cur) return;
+    const prev = cur; cur = i;
+    play(i);
+    scenes.forEach((s, k) => s.classList.toggle('on', k === i));
+    dots.forEach((d, k) => d.setAttribute('aria-pressed', k === i));
+    lp.style.setProperty('--mist-max', scenes[i].dataset.mist);
+    clearTimeout(pauseTimer);
+    pauseTimer = setTimeout(() => { if(cur !== prev) vid(prev).pause(); }, 1600);
+  };
+  dots.forEach((d, k) => d.addEventListener('click', () => { play(cur); show(k); }));
+
+  // タップ（クリック）で切り替え。スクロールや長押しでは切り替えない
+  let down = null;
+  lp.addEventListener('pointerdown', e => {
+    down = e.isPrimary ? {x:e.clientX, y:e.clientY, t:performance.now(), sy:scrollY} : null;
+  }, {passive:true});
+  lp.addEventListener('pointercancel', () => { down = null; }, {passive:true});
+  lp.addEventListener('pointerup', e => {
+    if(!down || e.target.closest('.lp-dots')){ down = null; return; }
+    const moved = Math.hypot(e.clientX - down.x, e.clientY - down.y) > 12 || Math.abs(scrollY - down.sy) > 4;
+    const long = performance.now() - down.t > 600;
+    down = null;
+    if(moved || long) return;
+    play(cur); show((cur + 1) % scenes.length);
+  }, {passive:true});
+  addEventListener('touchstart', () => { if(topPanel.classList.contains('active')) play(cur); }, {once:true, passive:true});
+
+  // TOPを開いているときだけ、スクロールを各画面で止める・動画を流す
+  const sync = () => {
+    const on = topPanel.classList.contains('active');
+    root.classList.toggle('lp-snap', on);
+    if(on){ setNav(); play(cur); } else { scenes.forEach((s, k) => vid(k).pause()); }
+  };
+  new MutationObserver(sync).observe(topPanel, {attributes:true, attributeFilter:['class']});
+  sync();
+
+  // スクロール量（1枚目の高さに対する割合）
+  let ticking = false;
+  const update = () => {
+    const h = lp.querySelector('.lp-screen').offsetHeight || 1;
+    const p = Math.min(1, Math.max(0, (nav.offsetHeight - lp.getBoundingClientRect().top) / h));
+    lp.style.setProperty('--p', p.toFixed(3));
+    ticking = false;
+  };
+  addEventListener('scroll', () => { if(!ticking){ ticking = true; requestAnimationFrame(update); } }, {passive:true});
+  addEventListener('resize', update);
+  update();
+
+  // 画面に入ったら文字を浮かび上がらせる
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+  }, {threshold:0.35});
+  lp.querySelectorAll('.lp-reveal').forEach(el => io.observe(el));
+
+  // 2026年の様子（アフタームービー）
+  const card = document.getElementById('pastCard');
+  const cta = document.getElementById('pastCardCta');
+  const igIcon = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2 .25 2.5.42.6.24 1 .53 1.5 1.02.5.5.78.9 1.02 1.5.17.5.36 1.3.42 2.5.07 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 2-.42 2.5-.24.6-.53 1-1.02 1.5-.5.5-.9.78-1.5 1.02-.5.17-1.3.36-2.5.42-1.3.07-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2-.25-2.5-.42-.6-.24-1-.53-1.5-1.02-.5-.5-.78-.9-1.02-1.5-.17-.5-.36-1.3-.42-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-2 .42-2.5.24-.6.53-1 1.02-1.5.5-.5.9-.78 1.5-1.02.5-.17 1.3-.36 2.5-.42C8.4 2.2 8.8 2.2 12 2.2zm0 5.2a4.6 4.6 0 110 9.2 4.6 4.6 0 010-9.2zm0 1.8a2.8 2.8 0 100 5.6 2.8 2.8 0 000-5.6zm4.8-2a1.08 1.08 0 110 2.16 1.08 1.08 0 010-2.16z"/></svg>';
+  if(AFTER_MOVIE_URL){
+    card.href = AFTER_MOVIE_URL;
+    card.setAttribute('aria-label', '2026年の様子：アフタームービーをInstagramで見る');
+    cta.innerHTML = igIcon + 'Instagramでアフタームービーを見る';
+  }else{
+    card.removeAttribute('href'); card.removeAttribute('target');
+    cta.classList.add('past-card__cta--soon');
+    cta.textContent = 'アフタームービー 近日公開';
+  }
+})();
 </script>
 </body>
 </html>
